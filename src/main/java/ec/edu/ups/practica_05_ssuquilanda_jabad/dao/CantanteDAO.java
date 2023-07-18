@@ -40,7 +40,6 @@ public class CantanteDAO implements ICantanteDAO {
         try {
             if (archivoCantante.length() == 0) {
                 archivoCantante.seek(archivoCantante.length());
-                archivoCantante.writeChars("\n");
                 archivoCantante.writeInt(cantante.getCodigo());
                 String nombre = cantante.getNombre();
                 if (nombre.length() < 25) {
@@ -110,6 +109,7 @@ public class CantanteDAO implements ICantanteDAO {
                 archivoCantante.writeInt(cantante.getNumeroDeGiras());
                 archivoCantante.writeDouble(cantante.getSalario());
                 archivoCantante.writeDouble(cantante.getSalarioFinal());
+                System.out.println(archivoCantante.length());
                 archivoCantante.close();
             } else {
                 archivoCantante.seek(archivoCantante.length());
@@ -189,28 +189,74 @@ public class CantanteDAO implements ICantanteDAO {
             System.out.println("Error");
         }
     }
-/*
+
     @Override
-    public int read(int id) {
+    public Cantante read(int id) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "r");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        
         try {
             boolean encuentra = false;
             int pos = 0;
-            archivoCantante.seek(pos);
-            archivoCantante.
-            while (encuentra) {
+            while (!encuentra) {
+                archivoCantante.seek(pos);
                 int cod = archivoCantante.readInt();
-                if (cod == id) {
-                    return cod;
+                System.out.println(cod); 
+               if (cod == id) {
+                    encuentra = true;                    
+                    //Para encontrar el nombre
+                    archivoCantante.seek(pos+ 4); //Posicion donde comienza el nombre(0) + 4
+                    String nombre = archivoCantante.readUTF();
+                    //Para encontrar el apellido
+                    archivoCantante.seek(pos+31);//Posicion donde comienza el apellido(25) + 4(del anterior) + 2 
+                    String apellido = archivoCantante.readUTF();
+                    //Para encontrar la edad
+                    archivoCantante.seek(pos+58); //Posicion donde comienza la edad(54)+4
+                    int edad = archivoCantante.readInt();
+                    //Para encontrar la nacionalidad
+                    archivoCantante.seek(pos+62);//Posicion donde comienza la nacionalidad(58)+4
+                    String nacionalidad = archivoCantante.readUTF();
+                    //Para encontrar el nombre artistico
+                    archivoCantante.seek(pos+89);
+                    String nombreArtistico = archivoCantante.readUTF();
+                    //Para encontrar el Genero musical
+                    archivoCantante.seek(pos+116);
+                    String generoMusical = archivoCantante.readUTF();
+                    //Para encontrar  el # Sencillos
+                    archivoCantante.seek(pos + 143);
+                    int sencillos = archivoCantante.readInt();
+                    //Para encontrar el # Conciertos
+                    archivoCantante.seek(pos + 147);
+                    int conciertos = archivoCantante.readInt();
+                    //Para encontrar el # Giras
+                    archivoCantante.seek(pos + 151);
+                    int giras = archivoCantante.readInt();
+                    //Para encontrar el salario
+                    archivoCantante.seek(pos+ 155);
+                    double salario = archivoCantante.readDouble();
+                    return new Cantante(nombreArtistico, generoMusical, sencillos, conciertos,giras, cod, nombre, apellido, edad, nacionalidad, salario);
                 } else {
-                    pos +=;
+                    if(pos+173 < archivoCantante.length()){
+                        pos += 173; //378;
+                    }
                 }
             }
         } catch (IOException ex) {
             Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return null;
     }
-
+    private static byte[] readCharsFromFile(String filePath, int seek, int chars) throws IOException {
+		RandomAccessFile file = new RandomAccessFile(filePath, "r");
+		file.seek(seek);
+		byte[] bytes = new byte[chars];
+		file.read(bytes);
+		file.close();
+		return bytes;
+	}
     /*
     @Override
     public void update(Cantante cantante) {
@@ -241,11 +287,6 @@ public class CantanteDAO implements ICantanteDAO {
         return listaCantante;
     }
      */
-    @Override
-    public int read(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     @Override
     public void update(Cantante cantante) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ICantanteDAO {
     public void create(Cantante cantate);
-    public int read(int id);
+    public Cantante read(int id);
     public void update(Cantante cantante);
     public void delete(Cantante cantante);   
     public List<Cantante> findAll();

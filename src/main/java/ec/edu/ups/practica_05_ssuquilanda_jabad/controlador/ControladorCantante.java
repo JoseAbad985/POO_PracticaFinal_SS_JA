@@ -42,7 +42,9 @@ public class ControladorCantante {
 
     //llama al DAO para obtener un cantante por el id y luego los muestra en la vista
     public Cantante buscarCantante(int codigo) {
+
         this.cantante = cantanteDAO.read(codigo);
+        cantante.setSalarioFinal(cantante.calcularSalario(cantante.getSalario()));
         return this.cantante;
     }
 
