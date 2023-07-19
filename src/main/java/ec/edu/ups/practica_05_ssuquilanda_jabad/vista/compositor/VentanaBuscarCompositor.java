@@ -72,7 +72,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         txtSalarioFinalCompositor = new javax.swing.JTextField();
         lblNombreCrearPersona11 = new javax.swing.JLabel();
         txtSalarioCompositor = new javax.swing.JTextField();
-        cbxPaisActualizarCompositor = new javax.swing.JComboBox<>();
+        txtNacionalidad = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar compositor por su codigo"));
         setClosable(true);
@@ -270,10 +270,14 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         });
         panelCantante.add(txtSalarioCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 240, 30));
 
-        cbxPaisActualizarCompositor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un País--" }));
-        cbxPaisActualizarCompositor.setToolTipText("Selecciona la nacionalidad del Compositor");
-        cbxPaisActualizarCompositor.setEnabled(false);
-        panelCantante.add(cbxPaisActualizarCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 240, 30));
+        txtNacionalidad.setToolTipText("Ingrese la nacionalidad del compositor");
+        txtNacionalidad.setEnabled(false);
+        txtNacionalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNacionalidadActionPerformed(evt);
+            }
+        });
+        panelCantante.add(txtNacionalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 240, -1));
 
         getContentPane().add(panelCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 900, 510));
 
@@ -318,7 +322,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
                 txtApellidoCompositor.setText(compositor.getApellido());
                 String edad = String.valueOf(compositor.getEdad());
                 txtEdadCompositor.setText(edad);
-                cbxPaisActualizarCompositor.setSelectedItem(compositor.getNacionalidad());
+                txtNacionalidad.setText(compositor.getNacionalidad());
                 String numComposiciones = String.valueOf(compositor.getNumeroDeComposiciones());
                 txtNumComposicionesCompositor.setText(numComposiciones);
                 String salarioCom = String.valueOf(compositor.getSalario());
@@ -339,7 +343,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         this.txtNombreCompositor.setText("");
         this.txtApellidoCompositor.setText("");
         this.txtEdadCompositor.setText("");
-        this.cbxPaisActualizarCompositor.setSelectedItem("--Selecciona un País--");
+        this.txtNacionalidad.setText("");
         this.txtNumComposicionesCompositor.setText("");
         this.txtSalarioFinalCompositor.setText("");
 
@@ -370,11 +374,14 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSalarioCompositorActionPerformed
 
+    private void txtNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNacionalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNacionalidadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptarBuscarCompositor;
     private javax.swing.JButton btnCancelarBuscarCompositor;
-    private javax.swing.JComboBox<String> cbxPaisActualizarCompositor;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCantante;
@@ -392,6 +399,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtApellidoCompositor;
     private javax.swing.JTextField txtCodigoCompositor;
     private javax.swing.JTextField txtEdadCompositor;
+    private javax.swing.JTextField txtNacionalidad;
     private javax.swing.JTextField txtNombreCompositor;
     private javax.swing.JTextField txtNumComposicionesCompositor;
     private javax.swing.JTextField txtSalarioCompositor;

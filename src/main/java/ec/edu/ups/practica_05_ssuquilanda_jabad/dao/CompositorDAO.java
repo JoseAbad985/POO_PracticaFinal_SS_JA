@@ -5,6 +5,7 @@
 package ec.edu.ups.practica_05_ssuquilanda_jabad.dao;
 
 import ec.edu.ups.practica_05_ssuquilanda_jabad.idao.ICompositorDAO;
+import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Cantante;
 import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Compositor;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -131,30 +132,59 @@ public class CompositorDAO implements ICompositorDAO {
     }
 
     @Override
-    public Compositor read(int codigo) {
+    public Compositor read(int id) {
         try {
             archivoCompositor = new RandomAccessFile(compositorFile, "r");
         } catch (IOException ex) {
             System.out.println("Error al buscar");
         }
+        
         try {
-            if (archivoCompositor.length() == 0) {
-                archivoCompositor.seek(codigo * 12);
-                int codigoCompo = archivoCompositor.readInt();
-                String nombreCompo = archivoCompositor.readUTF();
-                String apellidoCompo = archivoCompositor.readUTF();
-                int edadCompo = archivoCompositor.readInt();
-                String nacionalidadCompo = archivoCompositor.readUTF();
-                int numComposiciones = archivoCompositor.readInt();
-                double salarioCompo = archivoCompositor.readDouble();
-                double salarioFinalCompo = archivoCompositor.readDouble();
-                archivoCompositor.close();
-                return new Compositor();
+            boolean encuentra = false;
+            int pos = 0;
+            while (!encuentra) {
+                archivoCompositor.seek(pos);
+                int cod = archivoCompositor.readInt();
+                System.out.println(cod); 
+               if (cod == id) {
+                    encuentra = true;                    
+                    //Para encontrar el nombre
+                    archivoCompositor.seek(pos+ 4); //Posicion donde comienza el nombre(0) + 4
+                    String nombre = archivoCompositor.readUTF();
+                    //Para encontrar el apellido
+                    archivoCompositor.seek(pos+31);//Posicion donde comienza el apellido(25) + 4(del anterior) + 2 
+                    String apellido = archivoCompositor.readUTF();
+                    //Para encontrar la edad
+                    archivoCompositor.seek(pos+58); //Posicion donde comienza la edad(54)+4
+                    int edad = archivoCompositor.readInt();
+                    //Para encontrar la nacionalidad
+                    archivoCompositor.seek(pos+62);//Posicion donde comienza la nacionalidad(58)+4
+                    String nacionalidad = archivoCompositor.readUTF();
+                    //Para encontrar el num composiciones
+                    archivoCompositor.seek(pos+66);
+                    int numeroDeComposiciones = archivoCompositor.readInt();
+                    //Para encontrar el salario
+                    archivoCompositor.seek(pos+ 70);
+                    double salario = archivoCompositor.readDouble();
+                    return new Compositor(numeroDeComposiciones, cod, nombre, apellido, edad, nacionalidad, salario);
+                } else {
+                    if(pos+80 < archivoCompositor.length()){
+                        pos += 80; //378;
+                    }
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    private static byte[] readCharsFromFile(String filePath, int seek, int chars) throws IOException {
+		RandomAccessFile file = new RandomAccessFile(filePath, "r");
+		file.seek(seek);
+		byte[] bytes = new byte[chars];
+		file.read(bytes);
+		file.close();
+		return bytes;
     }
         /*@Override
         public void update

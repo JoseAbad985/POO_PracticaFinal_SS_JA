@@ -22,7 +22,7 @@ public class Compositor extends Persona {
     private List<Cantante> clientes;
 
     //Constructor con todos los parametros
-    public Compositor(int numeroDeComposiciones, int codigo, String nombre, String apellido, int edad, double salario, String nacionalidad) {
+    public Compositor(int numeroDeComposiciones, int codigo, String nombre, String apellido, int edad, String nacionalidad, double salario) {
         super(codigo, nombre, apellido, edad, nacionalidad, salario);
         this.numeroDeComposiciones = numeroDeComposiciones;
         this.cancionesTop100Billboard = new ArrayList();
