@@ -73,7 +73,7 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
         jInternalFrame2 = new javax.swing.JInternalFrame();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtEdadCompositor1 = new javax.swing.JTextField();
+        cbxPaisCompositor = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         btnCancelarIngresarCancion = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -189,7 +189,7 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
                 txtEdadCompositorActionPerformed(evt);
             }
         });
-        panelCantante1.add(txtEdadCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 220, 30));
+        panelCantante1.add(txtEdadCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 220, 30));
 
         txtNumComposicionesCompositor.setToolTipText("Ingrese el genero musical del cantante");
         txtNumComposicionesCompositor.setEnabled(false);
@@ -249,14 +249,10 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
         jLabel3.setText("Buscar compositor por su codigo, al cual se le va agregar una cancion  :");
         panelCantante1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 920, 40));
 
-        txtEdadCompositor1.setToolTipText("Ingrese le edad del cantante");
-        txtEdadCompositor1.setEnabled(false);
-        txtEdadCompositor1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEdadCompositor1ActionPerformed(evt);
-            }
-        });
-        panelCantante1.add(txtEdadCompositor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 220, 30));
+        cbxPaisCompositor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un País--" }));
+        cbxPaisCompositor.setToolTipText("Selecciona la nacionalidad del Cantante");
+        cbxPaisCompositor.setEnabled(false);
+        panelCantante1.add(cbxPaisCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 220, 30));
 
         getContentPane().add(panelCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 314));
 
@@ -362,6 +358,7 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "El codigo del compositor a buscar no ha sido ingresado!");
         } else {
             String codigo = txtCodigoCompositor.getText();
+
             int codiguito = Integer.parseInt(codigo);
 
             Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
@@ -369,14 +366,15 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
                 txtNombreCompositor.setText(compositorSeleccionado.getNombre());
                 txtApellidoCompositor.setText(compositorSeleccionado.getApellido());
                 String edad = String.valueOf(compositorSeleccionado.getEdad());
-                txtEdadCompositor1.setText(edad);
-                txtEdadCompositor.setText(compositorSeleccionado.getNacionalidad());
+                txtEdadCompositor.setText(edad);
+                cbxPaisCompositor.setSelectedItem(compositorSeleccionado.getNacionalidad());
                 String numComposiones = String.valueOf(compositorSeleccionado.getNumeroDeComposiciones());
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
                 btnAceptarIngresarCancion.setEnabled(true);
+
             } else {
                 JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " no ha sido encontrada !:(");
 
@@ -422,6 +420,7 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
     private void btnAceptarIngresarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarIngresarCancionActionPerformed
         if (camposObligatoriosConDatos()) {
             JOptionPane.showMessageDialog(this, "Los datos de la cancion son obligatorios de llenar");
+
         } else {
             String codigo = txtCodigoCancion.getText();
             int codigoCancion = Integer.parseInt(codigo);
@@ -450,16 +449,12 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
     private void txtTituloCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloCancionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTituloCancionActionPerformed
-
-    private void txtEdadCompositor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCompositor1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEdadCompositor1ActionPerformed
     private void limpiarCamposCompositor() {
         this.txtCodigoCompositor.setText("");
         this.txtNombreCompositor.setText("");
         this.txtApellidoCompositor.setText("");
         this.txtEdadCompositor.setText("");
-        this.txtEdadCompositor1.setText("");
+        this.cbxPaisCompositor.setSelectedItem("--Selecciona un País--");
         this.txtNumComposicionesCompositor.setText("");
         this.txtSalarioCompositor.setText("");
 
@@ -485,6 +480,7 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAceptarIngresarCancion;
     private javax.swing.JButton btnBuscarCompositor;
     private javax.swing.JButton btnCancelarIngresarCancion;
+    private javax.swing.JComboBox<String> cbxPaisCompositor;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -509,7 +505,6 @@ public class VentanaIngresarCancion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigoCancion;
     private javax.swing.JTextField txtCodigoCompositor;
     private javax.swing.JTextField txtEdadCompositor;
-    private javax.swing.JTextField txtEdadCompositor1;
     private javax.swing.JTextField txtLetraCancion;
     private javax.swing.JTextField txtNombreCompositor;
     private javax.swing.JTextField txtNumComposicionesCompositor;
