@@ -661,7 +661,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuItemAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAsignarClienteActionPerformed
         // TODO add your handling code here:
         if (ventanaAsignarCliente == null) {
-            ventanaAsignarCliente = new VentanaAsignarCliente(controladorCompositor);
+            ventanaAsignarCliente = new VentanaAsignarCliente(controladorCompositor, controladorCantante);
             desktopPane.add(ventanaAsignarCliente);
         }
         ventanaAsignarCliente.cambiarIdioma(localizacion);
