@@ -112,7 +112,7 @@ public class CompositorDAO implements ICompositorDAO {
                     return new Compositor(numeroDeComposiciones, cod, nombre, apellido, edad, nacionalidad, salario);
 
                 }
-                pos += 2479;
+                pos += 2439;
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,7 +145,7 @@ public class CompositorDAO implements ICompositorDAO {
         //  archivoCantante.writeUTF(" ");
         //n += 1;
         //}
-        byte[] bytes = new byte[2371];
+        byte[] bytes = new byte[2330];
         archivoCompositor.write(bytes);
     }
 
@@ -186,7 +186,7 @@ public class CompositorDAO implements ICompositorDAO {
                     archivoCompositor.close();
                     break;
                 }
-                pos += 2479;
+                pos += 2439;
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,15 +211,15 @@ public class CompositorDAO implements ICompositorDAO {
                     int longuitud = (int) archivoCompositor.length();
 
                     encuentra = true;
-                    archivoCompositor.seek(pos + 2479);
-                    byte[] compositorEliminado = new byte[longuitud - (pos + 2479)];
+                    archivoCompositor.seek(pos + 2439);
+                    byte[] compositorEliminado = new byte[longuitud - (pos + 2379)];
                     archivoCompositor.read(compositorEliminado);
                     archivoCompositor.seek(pos);
                     archivoCompositor.write(compositorEliminado);
                     archivoCompositor.setLength(longuitud - 2479);
                     archivoCompositor.close();
                 }
-                pos += 2479;
+                pos += 2439;
 
             }
         } catch (IOException ex) {
@@ -263,7 +263,7 @@ public class CompositorDAO implements ICompositorDAO {
 
                 Compositor compositor = new Compositor(numeroDeComposiciones, cod, nombre, apellido, edad, nacionalidad, salario);
                 compositores.add(compositor);
-                pos += 2479;
+                pos += 2439;
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -290,18 +290,19 @@ public class CompositorDAO implements ICompositorDAO {
                 System.out.println("Se compara con: " + compositor2.getCodigo());
                 while (cod == compositor2.getCodigo() && !encuentra) {
                     System.out.println("Se está escribiendo en el cantante con codigo: " + cod + "Que está en la posicion: " + pos2);
-                    archivoCompositor.seek(pos2 + 97 + 4);
+                    archivoCompositor.seek(pos2 + 109 + 4);
                     if (archivoCompositor.readUTF().isBlank()) {
-                        archivoCompositor.seek(pos2 + 97);
+                        archivoCompositor.seek(pos2 + 109);
                         encuentra = true;
                         archivoCompositor.writeInt(cancion.getCodigo());
                         archivoCompositor.writeUTF(cancion.getTitulo());
+                        archivoCompositor.writeUTF(cancion.getLetra());
                         archivoCompositor.writeDouble(cancion.getTiempoEnMinutos());
                         archivoCompositor.close();
                     }
-                    pos2 += 66;
+                    pos2 += 62;
                 }
-                pos += 2479;
+                pos += 2439;
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -324,19 +325,19 @@ public class CompositorDAO implements ICompositorDAO {
                 archivoCompositor.seek(pos);
                 int cod = archivoCompositor.readInt();
                 while ((cod == compositor2.getCodigo())) {
-                    archivoCompositor.seek(pos2 + 97);
+                    archivoCompositor.seek(pos2 + 109);
                     int codCancion = archivoCompositor.readInt();
                     if (codCancion == codigo) {
                         encuentra = true;
                         String titulo = archivoCompositor.readUTF();
                         String letra = archivoCompositor.readUTF();
-                        int tiempo = archivoCompositor.readInt();
+                        double tiempo = archivoCompositor.readDouble();
                         archivoCompositor.close();
                         return new Cancion(codigo, titulo, letra, tiempo);
                     }
-                    pos2 += 66;
+                    pos2 += 62;
                 }
-                pos += 2479;
+                pos += 2439;
 
             }
         } catch (IOException ex) {
@@ -361,7 +362,7 @@ public class CompositorDAO implements ICompositorDAO {
                 archivoCompositor.seek(pos);
                 int cod = archivoCompositor.readInt();
                 while (!encuentra && cod == compositor2.getCodigo()) {
-                    archivoCompositor.seek(pos2 + 97);
+                    archivoCompositor.seek(pos2 + 109);
                     int codCancion = archivoCompositor.readInt();
                     while (!encuentra && codCancion == cancion.getCodigo()) {
                         archivoCompositor.writeUTF(cancion.getTitulo());
@@ -370,9 +371,9 @@ public class CompositorDAO implements ICompositorDAO {
                         encuentra = true;
                         archivoCompositor.close();
                     }
-                    pos2 += 66;
+                    pos2 += 62;
                 }
-                pos += 2479;
+                pos += 2439;
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -395,21 +396,21 @@ public class CompositorDAO implements ICompositorDAO {
                 archivoCompositor.seek(pos);
                 int cod = archivoCompositor.readInt();
                 while (!encuentra && cod == compositor2.getCodigo()) {
-                    archivoCompositor.seek(pos2 + 97);
+                    archivoCompositor.seek(pos2 + 109);
                     int codCancion = archivoCompositor.readInt();
                     while (!encuentra && codCancion == cancion.getCodigo()) {
                         int longuitud = (int) archivoCompositor.length();
                         encuentra = true;
-                        archivoCompositor.seek(pos2 + 97);
-                        byte[] compositorEliminado = new byte[longuitud - (pos + 66)];
-                        archivoCompositor.seek(pos2 + 97);
+                        archivoCompositor.seek(pos2 + 109);
+                        byte[] compositorEliminado = new byte[longuitud - (pos + 62)];
+                        archivoCompositor.seek(pos2 + 109);
                         archivoCompositor.write(compositorEliminado);
-                        archivoCompositor.setLength(longuitud - 66);
+                        archivoCompositor.setLength(longuitud - 62);
                         archivoCompositor.close();
                     }
-                    pos2 += 66;
+                    pos2 += 62;
                 }
-                pos += 2479;
+                pos += 2439;
             }
         } catch (IOException ex) {
             Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -430,11 +431,11 @@ public class CompositorDAO implements ICompositorDAO {
             while (!encuentra && pos < archivoCompositor.length()) {
                 archivoCompositor.seek(pos);
                 int cod = archivoCompositor.readInt();
-                int pos2 = pos + 97;
+                int pos2 = pos + 109;
                 while (!encuentra && cod == compositor2.getCodigo()) {
                     //System.out.println(encuentra);
                     //System.out.println("Hasta aqui todo bien");
-                    while (pos2 < (pos + 2479)) {
+                    while (pos2 < (pos + 2439)) {
                         archivoCompositor.seek(pos2);
                         int codigo = archivoCompositor.readInt();
                         String titulo = archivoCompositor.readUTF();
@@ -442,7 +443,7 @@ public class CompositorDAO implements ICompositorDAO {
                         double tiempo = archivoCompositor.readDouble();
                         Cancion cancion = new Cancion(codigo, titulo, letra, tiempo);
                         canciones.add(cancion);
-                        pos2 += 66;
+                        pos2 += 62;
                     }
                     encuentra = true;
 
@@ -466,7 +467,7 @@ public class CompositorDAO implements ICompositorDAO {
         }
         try {
             boolean encuentra = false;
-            int pos = 97;
+            int pos = 109;
             int cont = 0;
             while (!encuentra && pos < archivoCompositor.length()) {
                 int pos2 = pos;
@@ -475,7 +476,7 @@ public class CompositorDAO implements ICompositorDAO {
                 while (cont < 10) {
                     if (codCancion == codigo) {
                         encuentra = true;
-                        archivoCompositor.seek(pos2 - ((66 * cont) + 97));
+                        archivoCompositor.seek(pos2 - ((62 * cont) + 109));
                         int cod = archivoCompositor.readInt();
                         //archivoCompositor.seek(pos+ 4); //Posicion donde comienza el nombre(0) + 4
                         String nombre = archivoCompositor.readUTF();
@@ -497,9 +498,9 @@ public class CompositorDAO implements ICompositorDAO {
                         archivoCompositor.close();
                         return new Compositor(numeroDeComposiciones, cod, nombre, apellido, edad, nacionalidad, salario);
                     }
-                    pos2 += 66;
+                    pos2 += 62;
                 }
-                pos += 2479;
+                pos += 2439;
                 cont = 0;
             }
             return null;
@@ -508,5 +509,149 @@ public class CompositorDAO implements ICompositorDAO {
         }
         return null;
 
+    }
+
+    @Override
+    public void agregarCliente(Compositor compositor2, Cantante cantante) {
+        try {
+            archivoCompositor = new RandomAccessFile(compositorFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            int pos2 = pos;
+            while (!encuentra && pos < archivoCompositor.length()) {
+                archivoCompositor.seek(pos);
+                int cod = archivoCompositor.readInt();
+                pos2 = pos;
+                System.out.println("El codigo que se está comparando es: " + cod);
+                System.out.println("Se compara con: " + compositor2.getCodigo());
+                while (cod == compositor2.getCodigo() && !encuentra) {
+                    System.out.println("Se está escribiendo en el cantante con codigo: " + cod + "Que está en la posicion: " + pos2);
+                    archivoCompositor.seek(pos2 + 729 + 4);
+                    if (archivoCompositor.readUTF().isBlank()) {
+                        archivoCompositor.seek(pos2 + 729);
+                        encuentra = true;
+                        archivoCompositor.writeInt(cantante.getCodigo());//4
+                        String nombre = cantante.getNombre();
+                        CalcularTamaño(archivoCompositor, nombre);
+                        String apellido = cantante.getApellido();
+                        CalcularTamaño(archivoCompositor, apellido);
+                        archivoCompositor.writeInt(cantante.getEdad());//4
+                        String Nacionalidad = cantante.getNacionalidad();
+                        CalcularTamaño(archivoCompositor, Nacionalidad);
+                        String NombreArtistico = cantante.getNombreArtistico();
+                        CalcularTamaño(archivoCompositor, NombreArtistico);
+                        String GeneroMusical = cantante.getGeneroMusical();
+                        CalcularTamaño(archivoCompositor, GeneroMusical);
+                        archivoCompositor.writeInt(cantante.getNumeroDeSencillos());//4
+                        archivoCompositor.writeInt(cantante.getNumeroDeConciertos());//4
+                        archivoCompositor.writeInt(cantante.getNumeroDeGiras());//4
+                        archivoCompositor.writeDouble(cantante.getSalario());//8
+                        archivoCompositor.writeDouble(cantante.getSalarioFinal());//8
+                        archivoCompositor.close();
+                    }
+                    pos2 += 171;
+                }
+                pos += 729;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    @Override
+    public void deleteCliente(Compositor compositor2, Cantante cantante) {
+        try {
+            archivoCompositor = new RandomAccessFile(compositorFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            int pos2 = pos;
+            while (!encuentra && pos < archivoCompositor.length()) {
+                archivoCompositor.seek(pos);
+                int cod = archivoCompositor.readInt();
+                while (!encuentra && cod == compositor2.getCodigo()) {
+                    archivoCompositor.seek(pos2 + 729);
+                    int codCancion = archivoCompositor.readInt();
+                    while (!encuentra && codCancion == cantante.getCodigo()) {
+                        int longuitud = (int) archivoCompositor.length();
+                        encuentra = true;
+                        archivoCompositor.seek(pos2 + 729);
+                        byte[] compositorEliminado = new byte[longuitud - (pos + 171)];
+                        archivoCompositor.seek(pos2 + 729);
+                        archivoCompositor.write(compositorEliminado);
+                        archivoCompositor.setLength(longuitud - 171);
+                        archivoCompositor.close();
+                    }
+                    pos2 += 171;
+                }
+                pos += 2439;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<Cantante> findAllCliente(Compositor compositor2) {
+        List<Cantante> cantantes = new ArrayList<>();
+        try {
+            try {
+                archivoCompositor = new RandomAccessFile(compositorFile, "rw");
+            } catch (IOException ex) {
+                System.out.println("Error al crear");
+            }
+            boolean encuentra = false;
+            int pos = 0;
+            while (!encuentra && pos < archivoCompositor.length()) {
+                archivoCompositor.seek(pos);
+                int cod = archivoCompositor.readInt();
+                int pos2 = pos + 729;
+                while (!encuentra && cod == compositor2.getCodigo()) {
+                    while (pos2 < (pos + 2439)) {
+                        archivoCompositor.seek(pos2);
+                        int codigo = archivoCompositor.readInt();
+                        String nombre = archivoCompositor.readUTF();
+                        //Para encontrar el apellido
+                        String apellido = archivoCompositor.readUTF();
+                        //Para encontrar la edad
+                        int edad = archivoCompositor.readInt();
+                        //Para encontrar la nacionalidad
+                        String nacionalidad = archivoCompositor.readUTF();
+                        //Para encontrar el nombre artistico
+                        String nombreArtistico = archivoCompositor.readUTF();
+                        //Para encontrar el Genero musical
+                        String generoMusical = archivoCompositor.readUTF();
+                        //Para encontrar  el # Sencillos
+                        int sencillos = archivoCompositor.readInt();
+                        //Para encontrar el # Conciertos
+                        int conciertos = archivoCompositor.readInt();
+                        //Para encontrar el # Giras
+                        int giras = archivoCompositor.readInt();
+                        //Para encontrar el salario
+                        double salario = archivoCompositor.readDouble();
+                        Cantante cantante =new Cantante(nombreArtistico, generoMusical, sencillos, conciertos, giras, codigo, nombre, apellido, edad, nacionalidad, salario);
+                        cantantes.add(cantante);
+                        pos2 += 171;
+                    }
+                    encuentra = true;
+
+                }
+                pos += 2439;
+
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(CompositorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cantantes;
     }
 }

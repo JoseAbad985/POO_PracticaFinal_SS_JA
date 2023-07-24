@@ -305,13 +305,13 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
 
     public List<String> generarPaises() {
         List<String> paises = new ArrayList<>();
-        paises.add("Afganistán");
+        paises.add("Afganistan");
         paises.add("Alemania");
         paises.add("Arabia Saudita");
         paises.add("Argentina");
         paises.add("Australia");
         paises.add("Brasil");
-        paises.add("Canadá");
+        paises.add("Canada");
         paises.add("China");
         paises.add("Colombia");
         paises.add("Corea del Sur");
@@ -323,15 +323,15 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
         paises.add("India");
         paises.add("Indonesia");
         paises.add("Italia");
-        paises.add("Japón");
+        paises.add("Japon");
         paises.add("México");
         paises.add("Nigeria");
         paises.add("Pakistán");
-        paises.add("Perú");
+        paises.add("Peru");
         paises.add("Reino Unido");
         paises.add("Rusia");
-        paises.add("Sudáfrica");
-        paises.add("Turquía");
+        paises.add("Sudafrica");
+        paises.add("Turquia");
         paises.add("Venezuela");
         return paises;
     }

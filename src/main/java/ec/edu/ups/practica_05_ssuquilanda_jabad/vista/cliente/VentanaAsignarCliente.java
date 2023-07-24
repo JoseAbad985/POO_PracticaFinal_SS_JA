@@ -19,45 +19,50 @@ import javax.swing.JOptionPane;
  * @author samanthasuquilandaquilli
  */
 public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
+
     private ControladorCompositor controladorCompositor;
     private ControladorCantante controladorCantante;
     private ResourceBundle mensajes;
+
     /**
      * Creates new form VentanaIngresarCancion
      */
-    public VentanaAsignarCliente(ControladorCompositor controladorCompositor) {
+    public VentanaAsignarCliente(ControladorCompositor controladorCompositor, ControladorCantante controladorCantante) {
         initComponents();
         this.controladorCompositor = controladorCompositor;
+        this.controladorCantante = controladorCantante;
     }
-     public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel3.setText(mensajes.getString("txtBuscarCompositorPorSuCódigoParaAgregarleUnCliente"));
         lblNombreCrearPersona5.setText(mensajes.getString("txtCódigo"));
-        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));        
-        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));        
-        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));        
-        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));       
-        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));        
+        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));
+        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));
+        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));
+        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));
+        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));
         lblSalarioBuscarCantante1.setText(mensajes.getString("txtSalario"));
         btnBuscarCompositor.setText(mensajes.getString("txtBuscar"));
         jLabel1.setText(mensajes.getString("txtIngresarCódigoDelClienteParaAgregar"));
         lblNombreCrearPersona2.setText(mensajes.getString("txtCódigo"));
-        lblNombreCrearPersona1.setText(mensajes.getString("txtNombre"));        
-        lblFechaNacimientoCrearPersona.setText(mensajes.getString("txtApellido"));        
-        lblNombreCrearPersona3.setText(mensajes.getString("txtEdad"));        
+        lblNombreCrearPersona1.setText(mensajes.getString("txtNombre"));
+        lblFechaNacimientoCrearPersona.setText(mensajes.getString("txtApellido"));
+        lblNombreCrearPersona3.setText(mensajes.getString("txtEdad"));
         lblNacionalidadBuscarCantante.setText(mensajes.getString("txtNacionalidad"));
-        lblNomArtisticoBuscarCantante.setText(mensajes.getString("txtNombreArtístico"));        
-        lblGenMusicalBuscarCantante.setText(mensajes.getString("txtGéneroMusical"));        
-        lblNumSencillosBuscarCantante.setText(mensajes.getString("txtNúmeroDeSencillos"));        
-        lblNumConciertosBuscarCantante.setText(mensajes.getString("txtNúmeroDeConciertos"));        
+        lblNomArtisticoBuscarCantante.setText(mensajes.getString("txtNombreArtístico"));
+        lblGenMusicalBuscarCantante.setText(mensajes.getString("txtGéneroMusical"));
+        lblNumSencillosBuscarCantante.setText(mensajes.getString("txtNúmeroDeSencillos"));
+        lblNumConciertosBuscarCantante.setText(mensajes.getString("txtNúmeroDeConciertos"));
         lblNumGirasBuscarCantante.setText(mensajes.getString("txtNúmeroDeGiras"));
         lblSalarioBaseBuscarCantante1.setText(mensajes.getString("txtSalarioBase"));
         lblSalarioFinalBuscarCantante.setText(mensajes.getString("txtSalarioFinal"));
         btnBuscarAsignarCantante.setText(mensajes.getString("txtBuscar"));
         btnAceptarAsignarCliente.setText(mensajes.getString("txtAceptar"));
         btnCancelarAsignarCancion.setText(mensajes.getString("txtCancelar"));
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,7 +91,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         jInternalFrame2 = new javax.swing.JInternalFrame();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        cbxPaisesCompositor = new javax.swing.JComboBox<>();
+        txtEdadCompositor1 = new javax.swing.JTextField();
         panelCantante = new javax.swing.JPanel();
         lblFechaNacimientoCrearPersona = new javax.swing.JLabel();
         lblNumGirasBuscarCantante = new javax.swing.JLabel();
@@ -116,10 +121,10 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         lblSalarioBaseBuscarCantante1 = new javax.swing.JLabel();
         txtSalarioCantante1 = new javax.swing.JTextField();
-        cbxPaisesActualizarCantante = new javax.swing.JComboBox<>();
-        cbxGeneroMusicalCantante = new javax.swing.JComboBox<>();
         btnAceptarAsignarCliente = new javax.swing.JButton();
         btnCancelarAsignarCancion = new javax.swing.JButton();
+        txtEdadCantante1 = new javax.swing.JTextField();
+        txtEdadCantante2 = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -221,7 +226,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtEdadCompositorActionPerformed(evt);
             }
         });
-        panelCantante1.add(txtEdadCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 220, 30));
+        panelCantante1.add(txtEdadCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 220, 30));
 
         txtNumComposicionesCompositor.setToolTipText("Ingrese el genero musical del cantante");
         txtNumComposicionesCompositor.setEnabled(false);
@@ -281,15 +286,14 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         jLabel3.setText("Buscar compositor por su codigo, al cual se le va agregar un cliente :");
         panelCantante1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 920, 40));
 
-        cbxPaisesCompositor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un País--" }));
-        cbxPaisesCompositor.setToolTipText("Puede cambiar la nacionalidad");
-        cbxPaisesCompositor.setEnabled(false);
-        cbxPaisesCompositor.addActionListener(new java.awt.event.ActionListener() {
+        txtEdadCompositor1.setToolTipText("Ingrese le edad del cantante");
+        txtEdadCompositor1.setEnabled(false);
+        txtEdadCompositor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxPaisesCompositorActionPerformed(evt);
+                txtEdadCompositor1ActionPerformed(evt);
             }
         });
-        panelCantante1.add(cbxPaisesCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 220, 30));
+        panelCantante1.add(txtEdadCompositor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 220, 30));
 
         getContentPane().add(panelCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 314));
 
@@ -303,7 +307,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
 
         lblNumGirasBuscarCantante.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblNumGirasBuscarCantante.setText("Num. Giras:");
-        panelCantante.add(lblNumGirasBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 180, 30));
+        panelCantante.add(lblNumGirasBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 180, 30));
 
         txtCodigoCliente.setToolTipText("Ingrese el codigo del cantante");
         txtCodigoCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -329,13 +333,13 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 btnBuscarAsignarCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(btnBuscarAsignarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 106, 32));
+        panelCantante.add(btnBuscarAsignarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 106, 32));
 
         lblcantantaFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/silue h.png"))); // NOI18N
-        panelCantante.add(lblcantantaFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 290, 360));
+        panelCantante.add(lblcantantaFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 140, 290, 360));
 
         lblicono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpeg"))); // NOI18N
-        panelCantante.add(lblicono, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 380, 700));
+        panelCantante.add(lblicono, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, 380, 700));
 
         lblNombreCrearPersona1.setFont(new java.awt.Font("AkayaTelivigala", 0, 24)); // NOI18N
         lblNombreCrearPersona1.setText("Nombre:");
@@ -356,19 +360,19 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         lblNomArtisticoBuscarCantante.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblNomArtisticoBuscarCantante.setText("Nombre Artístico:");
         lblNomArtisticoBuscarCantante.setToolTipText("");
-        panelCantante.add(lblNomArtisticoBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 210, 30));
+        panelCantante.add(lblNomArtisticoBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 310, 30));
 
         lblGenMusicalBuscarCantante.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblGenMusicalBuscarCantante.setText("Género Musical:");
-        panelCantante.add(lblGenMusicalBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 230, 30));
+        panelCantante.add(lblGenMusicalBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 230, 30));
 
         lblNumSencillosBuscarCantante.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblNumSencillosBuscarCantante.setText("Num. Sencillos:");
-        panelCantante.add(lblNumSencillosBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 210, 30));
+        panelCantante.add(lblNumSencillosBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 210, 30));
 
         lblNumConciertosBuscarCantante.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblNumConciertosBuscarCantante.setText("Num. Conciertos:");
-        panelCantante.add(lblNumConciertosBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 210, 30));
+        panelCantante.add(lblNumConciertosBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 210, 30));
 
         txtNomArtisticoCantante.setToolTipText("Este es el nombre artístico del Cantante");
         txtNomArtisticoCantante.setEnabled(false);
@@ -377,7 +381,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtNomArtisticoCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtNomArtisticoCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, 30));
+        panelCantante.add(txtNomArtisticoCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 220, 30));
 
         txtApellidoCantante.setToolTipText("Este es el Apellido del Cantante");
         txtApellidoCantante.setEnabled(false);
@@ -395,7 +399,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtEdadCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtEdadCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 220, 30));
+        panelCantante.add(txtEdadCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 220, 30));
 
         txtNumSencillosCantante.setToolTipText("Este es el numero de Sencillos del Cantante");
         txtNumSencillosCantante.setEnabled(false);
@@ -404,7 +408,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtNumSencillosCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtNumSencillosCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 220, 30));
+        panelCantante.add(txtNumSencillosCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 170, 220, 30));
 
         txtNumConciertosCantante.setToolTipText("Este es el numero de Conciertos del Cantante");
         txtNumConciertosCantante.setEnabled(false);
@@ -413,7 +417,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtNumConciertosCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtNumConciertosCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 220, 30));
+        panelCantante.add(txtNumConciertosCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, 220, 30));
 
         txtNumGirasCantante.setToolTipText("Este es el numero de Giras del Cantante");
         txtNumGirasCantante.setEnabled(false);
@@ -422,7 +426,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtNumGirasCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtNumGirasCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, 220, 30));
+        panelCantante.add(txtNumGirasCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 220, 30));
 
         jLabel1.setFont(new java.awt.Font("Hoefler Text", 1, 24)); // NOI18N
         jLabel1.setText("Ingrese el codigo del cliente a asignarle al compositor:");
@@ -430,7 +434,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
 
         lblSalarioFinalBuscarCantante.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblSalarioFinalBuscarCantante.setText("Salario Final:");
-        panelCantante.add(lblSalarioFinalBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 220, 30));
+        panelCantante.add(lblSalarioFinalBuscarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 220, 30));
 
         txtSalarioFinalCantante.setToolTipText("Este es el salario del Cantante");
         txtSalarioFinalCantante.setEnabled(false);
@@ -439,7 +443,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtSalarioFinalCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtSalarioFinalCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 530, 220, 30));
+        panelCantante.add(txtSalarioFinalCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 220, 30));
 
         jInternalFrame1.setClosable(true);
         jInternalFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -475,7 +479,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
 
         lblSalarioBaseBuscarCantante1.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblSalarioBaseBuscarCantante1.setText("Salario Base:");
-        panelCantante.add(lblSalarioBaseBuscarCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 250, 30));
+        panelCantante.add(lblSalarioBaseBuscarCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 250, 30));
 
         txtSalarioCantante1.setToolTipText("Este es el salario del Cantante");
         txtSalarioCantante1.setEnabled(false);
@@ -484,27 +488,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtSalarioCantante1ActionPerformed(evt);
             }
         });
-        panelCantante.add(txtSalarioCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 220, 30));
-
-        cbxPaisesActualizarCantante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un País--" }));
-        cbxPaisesActualizarCantante.setToolTipText("Puede cambiar la nacionalidad");
-        cbxPaisesActualizarCantante.setEnabled(false);
-        cbxPaisesActualizarCantante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxPaisesActualizarCantanteActionPerformed(evt);
-            }
-        });
-        panelCantante.add(cbxPaisesActualizarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 220, 30));
-
-        cbxGeneroMusicalCantante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un Género--" }));
-        cbxGeneroMusicalCantante.setToolTipText("Puede cambiar el género musical");
-        cbxGeneroMusicalCantante.setEnabled(false);
-        cbxGeneroMusicalCantante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxGeneroMusicalCantanteActionPerformed(evt);
-            }
-        });
-        panelCantante.add(cbxGeneroMusicalCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 220, 30));
+        panelCantante.add(txtSalarioCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, 30));
 
         btnAceptarAsignarCliente.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         btnAceptarAsignarCliente.setText("Asignar");
@@ -514,7 +498,7 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 btnAceptarAsignarClienteActionPerformed(evt);
             }
         });
-        panelCantante.add(btnAceptarAsignarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 100, 30));
+        panelCantante.add(btnAceptarAsignarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 100, 30));
 
         btnCancelarAsignarCancion.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnCancelarAsignarCancion.setText("Cancelar");
@@ -523,9 +507,27 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 btnCancelarAsignarCancionActionPerformed(evt);
             }
         });
-        panelCantante.add(btnCancelarAsignarCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 600, 104, 32));
+        panelCantante.add(btnCancelarAsignarCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, 104, 32));
 
-        getContentPane().add(panelCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 316, 1060, 680));
+        txtEdadCantante1.setToolTipText("Esta es la edad del Cantante");
+        txtEdadCantante1.setEnabled(false);
+        txtEdadCantante1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEdadCantante1ActionPerformed(evt);
+            }
+        });
+        panelCantante.add(txtEdadCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 220, 30));
+
+        txtEdadCantante2.setToolTipText("Esta es la edad del Cantante");
+        txtEdadCantante2.setEnabled(false);
+        txtEdadCantante2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEdadCantante2ActionPerformed(evt);
+            }
+        });
+        panelCantante.add(txtEdadCantante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 220, 30));
+
+        getContentPane().add(panelCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 316, 1390, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -557,18 +559,20 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
                 txtNombreCompositor.setText(compositorSeleccionado.getNombre());
                 txtApellidoCompositor.setText(compositorSeleccionado.getApellido());
                 String edad = String.valueOf(compositorSeleccionado.getEdad());
-                txtEdadCompositor.setText(edad);
-                cbxPaisesCompositor.setSelectedItem(compositorSeleccionado.getNacionalidad());
+                txtEdadCompositor1.setText(edad);
+                txtEdadCompositor.setText(compositorSeleccionado.getNacionalidad());
                 String numComposiones = String.valueOf(compositorSeleccionado.getNumeroDeComposiciones());
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
                 btnAceptarAsignarCliente.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " no ha sido encontrada !:(");
 
+                this.limpiarCamposCompositor();
+                this.limpiarCamposCliente();
                 this.limpiarCamposCompositor();
             }
         }
@@ -592,11 +596,26 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
 
     private void btnAceptarAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarAsignarClienteActionPerformed
         //Asignar cliente
-        String codigoCompositor = txtCodigoCompositor.getText();
-        int codiguito = Integer.parseInt(codigoCompositor);
-        Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
-        Cantante cliente = controladorCantante.buscarCantante(Integer.parseInt(txtCodigoCliente.getText()));
-        compositorSeleccionado.agregarCliente(cliente);
+        if (camposObligatoriosConDatos()) {
+            JOptionPane.showMessageDialog(this, "No se ingresó el Cliente!");
+        } else {
+            String codigoCompositor = txtCodigoCompositor.getText();
+            int codiguito = Integer.parseInt(codigoCompositor);
+            Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
+            if (compositorSeleccionado != null) {
+                Cantante cliente = controladorCantante.buscarCantante(Integer.parseInt(txtCodigoCliente.getText()));
+                controladorCompositor.registrarCliente(compositorSeleccionado, cliente);
+                JOptionPane.showMessageDialog(this, "Si se asignó el Cliente :D");
+                this.limpiarCamposCliente();
+                this.limpiarCamposCompositor();
+            }else {
+                JOptionPane.showMessageDialog(this, "No se asignó el Cliente :C");
+                this.limpiarCamposCliente();
+                this.limpiarCamposCompositor();
+            }
+        }
+
+
     }//GEN-LAST:event_btnAceptarAsignarClienteActionPerformed
 
     private void txtCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoClienteActionPerformed
@@ -608,37 +627,39 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreCantanteActionPerformed
 
     private void btnBuscarAsignarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAsignarCantanteActionPerformed
-        String codigo = txtCodigoCliente.getText();
-        if (codigo.isEmpty()) {
+        if (camposObligatoriosConDatos()) {
             JOptionPane.showMessageDialog(this, "El codigo del cantante a buscar no ha sido ingresado!");
         } else {
+            String codigo = txtCodigoCliente.getText();
+
             int codiguito = Integer.parseInt(codigo);
 
-            Cantante cantante = controladorCantante.buscarCantante(codiguito);
-            if (cantante != null) {
-                txtNombreCantante.setText(cantante.getNombre());
-                txtApellidoCantante.setText(cantante.getApellido());
-                String edad = String.valueOf(cantante.getEdad());
-                txtEdadCantante.setText(edad);
-                cbxPaisesActualizarCantante.setSelectedItem(cantante.getNacionalidad());
-                txtNomArtisticoCantante.setText(cantante.getNombreArtistico());
-                cbxGeneroMusicalCantante.setSelectedItem(cantante.getGeneroMusical());
-                String numSencillos = String.valueOf(cantante.getNumeroDeSencillos());
+            Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
+            if (cantanteSeleccionado != null) {
+                txtNombreCantante.setText(cantanteSeleccionado.getNombre());
+                txtApellidoCantante.setText(cantanteSeleccionado.getApellido());
+                String edad = String.valueOf(cantanteSeleccionado.getEdad());
+                txtEdadCantante1.setText(edad);
+                txtEdadCantante2.setText(cantanteSeleccionado.getNacionalidad());
+                txtNomArtisticoCantante.setText(cantanteSeleccionado.getNombreArtistico());
+                txtEdadCantante.setText(cantanteSeleccionado.getGeneroMusical());
+                String numSencillos = String.valueOf(cantanteSeleccionado.getNumeroDeSencillos());
                 txtNumSencillosCantante.setText(numSencillos);
-                String numConciertos = String.valueOf(cantante.getNumeroDeConciertos());
+                String numConciertos = String.valueOf(cantanteSeleccionado.getNumeroDeConciertos());
                 txtNumConciertosCantante.setText(numConciertos);
-                String numGiras = String.valueOf(cantante.getNumeroDeGiras());
+                String numGiras = String.valueOf(cantanteSeleccionado.getNumeroDeGiras());
                 txtNumGirasCantante.setText(numGiras);
-                String salarioCan = String.valueOf(cantante.getSalario());
-                String salarioCanF = String.valueOf(cantante.getSalarioFinal());
-                txtSalarioFinalCantante.setText(salarioCanF);
+                String salarioCan = String.valueOf(cantanteSeleccionado.getSalario());
                 txtSalarioCantante1.setText(salarioCan);
-                JOptionPane.showMessageDialog(this, "El/La cantante con codigo " + codiguito + " ha sido encontrado !:)");
+                txtSalarioFinalCantante.setText(String.valueOf(cantanteSeleccionado.getSalarioFinal()));
+                JOptionPane.showMessageDialog(this, "El/La cantante con codigo " + codiguito + " ha sido encontrado !:D");
+                btnAceptarAsignarCliente.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(this, "El/La cantante con codigo " + codiguito + " no ha sido encontrada !:(");
 
                 this.limpiarCamposCliente();
+                this.limpiarCamposCompositor();
             }
         }
     }//GEN-LAST:event_btnBuscarAsignarCantanteActionPerformed
@@ -675,29 +696,29 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSalarioCantante1ActionPerformed
 
-    private void cbxPaisesActualizarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPaisesActualizarCantanteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxPaisesActualizarCantanteActionPerformed
-
-    private void cbxGeneroMusicalCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGeneroMusicalCantanteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxGeneroMusicalCantanteActionPerformed
-
     private void btnCancelarAsignarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAsignarCancionActionPerformed
         this.limpiarCamposCompositor();
         this.setVisible(false);
         this.limpiarCamposCliente();
     }//GEN-LAST:event_btnCancelarAsignarCancionActionPerformed
 
-    private void cbxPaisesCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPaisesCompositorActionPerformed
+    private void txtEdadCompositor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCompositor1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxPaisesCompositorActionPerformed
+    }//GEN-LAST:event_txtEdadCompositor1ActionPerformed
+
+    private void txtEdadCantante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCantante1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEdadCantante1ActionPerformed
+
+    private void txtEdadCantante2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCantante2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEdadCantante2ActionPerformed
     private void limpiarCamposCompositor() {
         this.txtCodigoCompositor.setText("");
         this.txtNombreCompositor.setText("");
         this.txtApellidoCompositor.setText("");
         this.txtEdadCompositor.setText("");
-        this.cbxPaisesCompositor.setSelectedItem("--Selecciona un País--");
+        this.txtEdadCompositor1.setText("");
         this.txtNumComposicionesCompositor.setText("");
         this.txtSalarioCompositor.setText("");
 
@@ -708,8 +729,8 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         this.txtNombreCantante.setText("");
         this.txtApellidoCantante.setText("");
         this.txtEdadCantante.setText("");
-        this.cbxPaisesActualizarCantante.setSelectedItem("--Selecciona un País--");
-        this.cbxGeneroMusicalCantante.setSelectedItem("--Selecciona un Género--");
+        this.txtEdadCantante2.setText("");
+        this.txtEdadCantante1.setText("");
         this.txtNomArtisticoCantante.setText("");
         this.txtNumSencillosCantante.setText("");
         this.txtNumConciertosCantante.setText("");
@@ -717,8 +738,6 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
         this.txtSalarioCantante1.setText("");
         this.txtSalarioFinalCantante.setText("");
     }
-
-    
 
     private boolean camposObligatoriosConDatos() {
         if (!this.txtCodigoCliente.getText().isEmpty() && this.txtCodigoCompositor.getText().isEmpty()) {
@@ -733,9 +752,6 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscarAsignarCantante;
     private javax.swing.JButton btnBuscarCompositor;
     private javax.swing.JButton btnCancelarAsignarCancion;
-    private javax.swing.JComboBox<String> cbxGeneroMusicalCantante;
-    private javax.swing.JComboBox<String> cbxPaisesActualizarCantante;
-    private javax.swing.JComboBox<String> cbxPaisesCompositor;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel1;
@@ -771,7 +787,10 @@ public class VentanaAsignarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigoCliente;
     private javax.swing.JTextField txtCodigoCompositor;
     private javax.swing.JTextField txtEdadCantante;
+    private javax.swing.JTextField txtEdadCantante1;
+    private javax.swing.JTextField txtEdadCantante2;
     private javax.swing.JTextField txtEdadCompositor;
+    private javax.swing.JTextField txtEdadCompositor1;
     private javax.swing.JTextField txtNomArtisticoCantante;
     private javax.swing.JTextField txtNombreCantante;
     private javax.swing.JTextField txtNombreCompositor;

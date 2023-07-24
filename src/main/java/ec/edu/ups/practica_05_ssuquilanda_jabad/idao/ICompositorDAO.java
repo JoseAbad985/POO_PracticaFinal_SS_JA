@@ -4,6 +4,7 @@
  */
 package ec.edu.ups.practica_05_ssuquilanda_jabad.idao;
 import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Cancion;
+import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Cantante;
 import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Compositor;
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface ICompositorDAO {
     public void deleteCancion(Compositor compositor, Cancion cancion);
     public List<Cancion> findAllCancion(Compositor compositor);
     public Compositor readCancionWOS(int codigo);
+    public void agregarCliente(Compositor compositor, Cantante cliente);
+    public void deleteCliente(Compositor compositor, Cantante cantante);
+    public List<Cantante> findAllCliente(Compositor compositor);
 }

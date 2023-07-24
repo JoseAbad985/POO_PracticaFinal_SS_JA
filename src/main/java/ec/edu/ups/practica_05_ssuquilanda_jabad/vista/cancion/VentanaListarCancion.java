@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author samanthasuquilandaquilli
  */
 public class VentanaListarCancion extends javax.swing.JInternalFrame {
+
     private ControladorCompositor controladorCompositor;
     private ResourceBundle mensajes;
 
@@ -28,15 +29,16 @@ public class VentanaListarCancion extends javax.swing.JInternalFrame {
         initComponents();
         this.controladorCompositor = controladorCompositor;
     }
-    public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel3.setText(mensajes.getString("txtInstruccionListarCancion"));
         lblNombreCrearPersona5.setText(mensajes.getString("txtCódigo"));
-        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));        
-        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));        
-        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));        
-        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));       
-        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));        
+        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));
+        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));
+        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));
+        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));
+        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));
         lblSalarioBuscarCantante1.setText(mensajes.getString("txtSalario"));
         btnBuscarCompositor.setText(mensajes.getString("txtBuscar"));
     }
@@ -321,7 +323,8 @@ public class VentanaListarCancion extends javax.swing.JInternalFrame {
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
+                txtNacionalidadCompositor.setText(compositorSeleccionado.getNacionalidad());
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
                 btnBuscarCompositor.setEnabled(true);
                 this.cargarDatosTablaCancion();
 
@@ -342,19 +345,21 @@ public class VentanaListarCancion extends javax.swing.JInternalFrame {
         String codigoCompositor = txtCodigoCompositor.getText();
         int codiguito = Integer.parseInt(codigoCompositor);
         Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
-        List<Cancion> cancionesTop100Billboard = controladorCompositor.listarCanciones(compositorSeleccionado );
+        List<Cancion> cancionesTop100Billboard = controladorCompositor.listarCanciones(compositorSeleccionado);
         for (Cancion cancion : cancionesTop100Billboard) {
+            if (cancion.getCodigo() != 0) {
+                String codigo = String.valueOf(cancion.getCodigo());
+                String titulo = cancion.getTitulo();
+                String letra = cancion.getLetra();
+                String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
 
-            String codigo = String.valueOf(cancion.getCodigo());
-            String titulo = cancion.getTitulo();
-            String letra = cancion.getLetra();
-            String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
-
-            Object[] rowData = {codigo, titulo, letra, tiempo};
-            modelo.addRow(rowData);
+                Object[] rowData = {codigo, titulo, letra, tiempo};
+                modelo.addRow(rowData);
+            }
         }
         this.tblListarCancion.setModel(modelo);
     }
+
     private void limpiarCamposCompositor() {
         this.txtCodigoCompositor.setText("");
         this.txtNombreCompositor.setText("");
@@ -365,6 +370,7 @@ public class VentanaListarCancion extends javax.swing.JInternalFrame {
         this.txtSalarioCompositor.setText("");
 
     }
+
     private boolean camposObligatoriosConDatos() {
         if (!this.txtCodigoCompositor.getText().isEmpty()) {
             return true;
@@ -372,6 +378,7 @@ public class VentanaListarCancion extends javax.swing.JInternalFrame {
             return false;
         }
     }
+
     private void cambiarEstadoCampos(boolean estado) {
         txtCodigoCompositor.setEnabled(!estado);
 

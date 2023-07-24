@@ -188,6 +188,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        desktopPane.setAutoscrolls(true);
+
+        menuBar.setAutoscrolls(true);
+
         menuCantante.setMnemonic('f');
         menuCantante.setText("Cantante");
         menuCantante.addActionListener(new java.awt.event.ActionListener() {
@@ -473,7 +477,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
         );
 
         pack();
@@ -662,7 +666,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuItemAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAsignarClienteActionPerformed
         // TODO add your handling code here:
         if (ventanaAsignarCliente == null) {
-            ventanaAsignarCliente = new VentanaAsignarCliente(controladorCompositor);
+            ventanaAsignarCliente = new VentanaAsignarCliente(controladorCompositor, controladorCantante);
             desktopPane.add(ventanaAsignarCliente);
         }
         ventanaAsignarCliente.cambiarIdioma(localizacion);
@@ -714,7 +718,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuItemDesAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDesAsignarClienteActionPerformed
         // TODO add your handling code here:
         if (ventanaDesAsignarCliente == null) {
-            ventanaDesAsignarCliente = new VentanaDesAsignarCliente(controladorCompositor);
+            ventanaDesAsignarCliente = new VentanaDesAsignarCliente(controladorCompositor, controladorCantante);
             desktopPane.add(ventanaDesAsignarCliente);
         }
         ventanaDesAsignarCliente.cambiarIdioma(localizacion);

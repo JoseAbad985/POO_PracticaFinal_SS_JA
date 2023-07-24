@@ -22,6 +22,7 @@ public class VentanaListarCompositor extends javax.swing.JInternalFrame {
 
     private ControladorCompositor controladorCompositor;
     private ResourceBundle mensajes;
+
     /**
      * Creates new form VentanaListarCompositor
      */
@@ -30,12 +31,13 @@ public class VentanaListarCompositor extends javax.swing.JInternalFrame {
         this.controladorCompositor = controladorCompositor;
 
     }
-    public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel3.setText(mensajes.getString("txtListaDeCompositores"));
         tblListarCanciones1.setText(mensajes.getString("txtListaDeCanciones"));
-        jLabel5.setText(mensajes.getString("txtIngresarCódigoDelCantanteParaMostrarListaDeÁlbumesYClientes"));        
-        tblListarCanciones.setText(mensajes.getString("txtListaDeClientes"));        
+        jLabel5.setText(mensajes.getString("txtIngresarCódigoDelCantanteParaMostrarListaDeÁlbumesYClientes"));
+        tblListarCanciones.setText(mensajes.getString("txtListaDeClientes"));
         btnBuscarCompositor.setText(mensajes.getString("txtBuscar"));
     }
 
@@ -283,14 +285,15 @@ public class VentanaListarCompositor extends javax.swing.JInternalFrame {
         Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
         List<Cancion> cancionesTop100Billboard = controladorCompositor.listarCanciones(compositorSeleccionado);
         for (Cancion cancion : cancionesTop100Billboard) {
+            if (cancion.getCodigo() != 0) {
+                String codigo = String.valueOf(cancion.getCodigo());
+                String titulo = cancion.getTitulo();
+                String letra = cancion.getLetra();
+                String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
 
-            String codigo = String.valueOf(cancion.getCodigo());
-            String titulo = cancion.getTitulo();
-            String letra = cancion.getLetra();
-            String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
-
-            Object[] rowData = {codigo, titulo, letra, tiempo};
-            modelo.addRow(rowData);
+                Object[] rowData = {codigo, titulo, letra, tiempo};
+                modelo.addRow(rowData);
+            }
         }
         this.tblListarCancion.setModel(modelo);
     }
@@ -303,21 +306,22 @@ public class VentanaListarCompositor extends javax.swing.JInternalFrame {
         Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
         List<Cantante> listaCantantes = controladorCompositor.listarClientes(compositorSeleccionado);
         for (Cantante cantante : listaCantantes) {
+            if (cantante.getCodigo() != 0) {
+                String codigo = String.valueOf(cantante.getCodigo());
+                String nombre = cantante.getNombre();
+                String apellido = cantante.getApellido();
+                String edad = String.valueOf(cantante.getEdad());
+                String nacionalidad = cantante.getNacionalidad();
+                String nomArtistico = cantante.getNombreArtistico();
+                String genMusical = cantante.getGeneroMusical();
+                String numSencillos = String.valueOf(cantante.getNumeroDeSencillos());
+                String numConciertos = String.valueOf(cantante.getNumeroDeConciertos());
+                String numGiras = String.valueOf(cantante.getNumeroDeGiras());
+                String salario = String.valueOf(cantante.getSalario());
 
-            String codigo = String.valueOf(cantante.getCodigo());
-            String nombre = cantante.getNombre();
-            String apellido = cantante.getApellido();
-            String edad = String.valueOf(cantante.getEdad());
-            String nacionalidad = cantante.getNacionalidad();
-            String nomArtistico = cantante.getNombreArtistico();
-            String genMusical = cantante.getGeneroMusical();
-            String numSencillos = String.valueOf(cantante.getNumeroDeSencillos());
-            String numConciertos = String.valueOf(cantante.getNumeroDeConciertos());
-            String numGiras = String.valueOf(cantante.getNumeroDeGiras());
-            String salario = String.valueOf(cantante.getSalario());
-
-            Object[] rowData = {codigo, nombre, apellido, edad, nacionalidad, nomArtistico, genMusical, numSencillos, numConciertos, numGiras, salario};
-            modeloCantante.addRow(rowData);
+                Object[] rowData = {codigo, nombre, apellido, edad, nacionalidad, nomArtistico, genMusical, numSencillos, numConciertos, numGiras, salario};
+                modeloCantante.addRow(rowData);
+            }
         }
         this.tblListarClientes.setModel(modeloCantante);
     }

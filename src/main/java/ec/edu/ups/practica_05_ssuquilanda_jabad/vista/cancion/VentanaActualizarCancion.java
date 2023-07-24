@@ -16,25 +16,27 @@ import javax.swing.JOptionPane;
  * @author samanthasuquilandaquilli
  */
 public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
+
     private ControladorCompositor controladorCompositor;
     private ResourceBundle mensajes;
+
     /**
      * Creates new form VentanaActualizarCancion
      */
     public VentanaActualizarCancion(ControladorCompositor controladorCompositor) {
         initComponents();
-        this.controladorCompositor =  controladorCompositor;
+        this.controladorCompositor = controladorCompositor;
     }
-    
-    public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel3.setText(mensajes.getString("txtInstruccionActualizarCancion1"));
         lblNombreCrearPersona5.setText(mensajes.getString("txtCódigo"));
-        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));        
-        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));        
-        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));        
-        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));       
-        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));        
+        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));
+        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));
+        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));
+        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));
+        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));
         lblSalarioBuscarCantante1.setText(mensajes.getString("txtSalario"));
         btnBuscarCompositor.setText(mensajes.getString("txtBuscar"));
         jLabel2.setText(mensajes.getString(("txtInstruccionActualizarCancion2")));
@@ -42,9 +44,10 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         lblNombreCrearPersona9.setText(mensajes.getString("txtTítulo"));
         lblAñoDeLanzamientoIngresarDisco.setText(mensajes.getString("txtLetra"));
         lblNombreCrearPersona8.setText(mensajes.getString("txtDuraciónEnMinutos"));
-        btnBuscarCancion.setText(mensajes.getString("txtActualizar"));
+        btnBuscarCancion.setText(mensajes.getString("txtBuscar"));
         btnCancelarBuscarCancion.setText(mensajes.getString("txtCancelar"));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,6 +102,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameClosing(evt);
@@ -204,7 +208,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                 btnBuscarCancionActionPerformed(evt);
             }
         });
-        jPanel4.add(btnBuscarCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 106, 32));
+        jPanel4.add(btnBuscarCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 106, 32));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, -1, 340));
 
@@ -293,7 +297,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                 txtNumComposicionesCompositorActionPerformed(evt);
             }
         });
-        panelCantante1.add(txtNumComposicionesCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, 220, 30));
+        panelCantante1.add(txtNumComposicionesCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 220, 30));
 
         lblSalarioBuscarCantante1.setFont(new java.awt.Font("AkayaKanadaka", 0, 24)); // NOI18N
         lblSalarioBuscarCantante1.setText("Salario:");
@@ -306,7 +310,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                 txtSalarioCompositorActionPerformed(evt);
             }
         });
-        panelCantante1.add(txtSalarioCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 130, 220, 30));
+        panelCantante1.add(txtSalarioCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 220, 30));
 
         jInternalFrame2.setClosable(true);
         jInternalFrame2.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -366,6 +370,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
     private void btnCancelarBuscarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarBuscarCancionActionPerformed
         this.setVisible(false);
         this.limpiarCamposCancion();
+        this.limpiarCamposCompositor();
     }//GEN-LAST:event_btnCancelarBuscarCancionActionPerformed
 
     private void txtTiempoCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTiempoCancionActionPerformed
@@ -388,7 +393,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         String titulo = txtTituloCancion.getText();
         String letra = txtLetraCancion.getText();
         String tiempo = txtTiempoCancion.getText();
-        int tiempoCan = Integer.parseInt(tiempo);
+        double tiempoCan = Double.parseDouble(tiempo);
         Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
         Cancion cancion = new Cancion();
         cancion.setCodigo(codigoCan);
@@ -405,9 +410,8 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "La cancion no ha sido actualizada! :(");
         }
-        
 
-        
+
     }//GEN-LAST:event_btnAceptarActualizarCancionActionPerformed
 
     private void txtTituloCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloCancionActionPerformed
@@ -424,14 +428,17 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
             int codiguito = Integer.parseInt(codigoCompositor);
             int codigoCan = Integer.parseInt(codigoCancion);
             Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
-            Cancion cancion = controladorCompositor.buscarCancion(compositorSeleccionado,codigoCan);
+            Cancion cancion = controladorCompositor.buscarCancion(compositorSeleccionado, codigoCan);
             if (cancion != null) {
-                cambiarEstadoCampos(true);
                 txtCodigoCancion.setEnabled(false);
                 txtTituloCancion.setText(cancion.getTitulo());
+                txtTituloCancion.setEnabled(true);
                 txtLetraCancion.setText(cancion.getLetra());
+                txtLetraCancion.setEnabled(true);
                 String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
                 txtTiempoCancion.setText(tiempo);
+                txtTiempoCancion.setEnabled(true);
+
                 JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " ha sido encontrada !:(");
                 btnAceptarActualizarCancion.setEnabled(true);
 
@@ -439,6 +446,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " no ha sido encontrada !:(");
 
                 this.limpiarCamposCancion();
+                this.limpiarCamposCompositor();
             }
 
         }
@@ -473,7 +481,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSalarioCompositorActionPerformed
 
     private void btnBuscarCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCompositorActionPerformed
-        if (!camposObligatoriosConDatos()) {
+        if (!camposObligatoriosCOMPConDatos()) {
             JOptionPane.showMessageDialog(this, "El codigo del compositor a buscar no ha sido ingresado!");
         } else {
             String codigo = txtCodigoCompositor.getText();
@@ -482,7 +490,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
 
             Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
             if (compositorSeleccionado != null) {
-                cambiarEstadoCampos(true);
+                cambiarEstadoCampos(false);
                 txtCodigoCompositor.setEnabled(false);
                 txtNombreCompositor.setText(compositorSeleccionado.getNombre());
                 txtApellidoCompositor.setText(compositorSeleccionado.getApellido());
@@ -492,16 +500,22 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
+                txtNacionalidadCompositor.setText(compositorSeleccionado.getNacionalidad());
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
                 btnBuscarCancion.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " no ha sido encontrada !:(");
-
                 this.limpiarCamposCompositor();
+                this.limpiarCamposCancion();
             }
         }
     }//GEN-LAST:event_btnBuscarCompositorActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.limpiarCamposCompositor();
+        this.limpiarCamposCancion();
+    }//GEN-LAST:event_formInternalFrameClosed
 
     private void limpiarCamposCompositor() {
         this.txtCodigoCompositor.setText("");
@@ -513,6 +527,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         this.txtSalarioCompositor.setText("");
 
     }
+
     private void limpiarCamposCancion() {
         this.txtCodigoCancion.setText("");
         this.txtTituloCancion.setText("");
@@ -520,16 +535,26 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         this.txtTiempoCancion.setText("");
 
     }
-    private boolean camposObligatoriosConDatos() {
-        if (!this.txtCodigoCancion.getText().isEmpty() && this.txtCodigoCompositor.getText().isEmpty()) {
+
+    private boolean camposObligatoriosCOMPConDatos() {
+        if (!this.txtCodigoCompositor.getText().isEmpty()) {
             return true;
         } else {
             return false;
         }
     }
+
+    private boolean camposObligatoriosCANPConDatos() {
+        if (!this.txtCodigoCancion.getText().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private void cambiarEstadoCampos(boolean estado) {
         txtCodigoCancion.setEnabled(!estado);
-        txtCodigoCompositor.setEnabled(!estado);
+        txtCodigoCompositor.setEnabled(estado);
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -61,7 +61,7 @@ public class ControladorCompositor {
     public void registrarCliente(Compositor compositor, Cantante cliente) {
         this.compositor = compositor;
         this.cantante = cliente;
-        compositor.agregarCliente(cliente);
+        compositorDAO.agregarCliente(compositor, cliente);
     }
 
     //llama al DAO para obtener un compositor por el id y luego los muestra en la vista
@@ -128,7 +128,7 @@ public class ControladorCompositor {
     public boolean actualizarCancion(Compositor compositor, Cancion cancion) {
         Compositor compositorEncontrado = this.compositor;
         if (compositorEncontrado != null) {
-            compositorEncontrado.actualizarCancion(cancion);
+            compositorDAO.updateCancion(compositor, cancion);
             return true;
         }
         return false;
@@ -138,7 +138,7 @@ public class ControladorCompositor {
     public boolean eliminarCancion(Compositor compositor, Cancion cancion) {
         Compositor compositorEncontrado = this.compositor;
         if (compositorEncontrado != null) {
-            compositorEncontrado.eliminarCancion(cancion);
+            compositorDAO.deleteCancion(compositor,cancion);
             return true;
         }
         return false;
@@ -148,7 +148,7 @@ public class ControladorCompositor {
     public List<Cancion> listarCanciones(Compositor compositor) {
         Compositor compositorEncontrado = this.compositor;
         if (compositorEncontrado != null) {
-            return compositorEncontrado.listarCanciones();
+            return compositorDAO.findAllCancion(compositor);
         }else{
            return null; 
         }
@@ -165,7 +165,7 @@ public class ControladorCompositor {
     public boolean eliminarClienteDelCompositor(Compositor compositor, Cantante cliente) {
         Compositor compositorEncontrado = this.compositor;
         if (compositorEncontrado != null) {
-            cantanteDAO.delete(cliente);
+            compositorDAO.deleteCliente(compositor, cliente);
             return true;
         }
         return false;
@@ -174,7 +174,7 @@ public class ControladorCompositor {
     public List<Cantante> listarClientes(Compositor compositor) {
         Compositor compositorEncontrado = this.compositor;
         if (compositorEncontrado != null) {
-            return compositorEncontrado.listarClientes();
+            return compositorDAO.findAllCliente(compositor);
         } else {
             return null;
         }

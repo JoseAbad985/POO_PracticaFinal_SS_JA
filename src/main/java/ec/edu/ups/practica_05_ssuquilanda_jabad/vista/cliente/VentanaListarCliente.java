@@ -27,23 +27,23 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
      */
     public VentanaListarCliente(ControladorCompositor controladorCompositor) {
         initComponents();
-        this.controladorCompositor  = controladorCompositor;
-        
+        this.controladorCompositor = controladorCompositor;
+
     }
-    public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel3.setText(mensajes.getString("txtIngresarCódigoDelCompositorParaListarSusClientes"));
         lblNombreCrearPersona5.setText(mensajes.getString("txtCódigo"));
-        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));        
-        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));        
-        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));        
-        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));       
-        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));        
+        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));
+        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));
+        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));
+        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));
+        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeComposiciónes"));
         lblSalarioBuscarCantante1.setText(mensajes.getString("txtSalario"));
         btnBuscarCompositor.setText(mensajes.getString("txtBuscar"));
-        
-            
-        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,7 +76,7 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
         btnBuscarCompositor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListarCliente = new javax.swing.JTable();
-        cbxPaisesCompositor = new javax.swing.JComboBox<>();
+        txtEdadCompositor1 = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -171,7 +171,7 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
                 txtEdadCompositorActionPerformed(evt);
             }
         });
-        panelCantante1.add(txtEdadCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 220, 30));
+        panelCantante1.add(txtEdadCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 220, 30));
 
         txtNumComposicionesCompositor.setToolTipText("Ingrese el genero musical del cantante");
         txtNumComposicionesCompositor.setEnabled(false);
@@ -263,15 +263,14 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
 
         panelCantante1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 1350, -1));
 
-        cbxPaisesCompositor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un País--" }));
-        cbxPaisesCompositor.setToolTipText("Puede cambiar la nacionalidad");
-        cbxPaisesCompositor.setEnabled(false);
-        cbxPaisesCompositor.addActionListener(new java.awt.event.ActionListener() {
+        txtEdadCompositor1.setToolTipText("Ingrese le edad del cantante");
+        txtEdadCompositor1.setEnabled(false);
+        txtEdadCompositor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxPaisesCompositorActionPerformed(evt);
+                txtEdadCompositor1ActionPerformed(evt);
             }
         });
-        panelCantante1.add(cbxPaisesCompositor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 220, 30));
+        panelCantante1.add(txtEdadCompositor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 220, 30));
 
         getContentPane().add(panelCantante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1890, 710));
 
@@ -319,13 +318,13 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
                 txtNombreCompositor.setText(compositorSeleccionado.getNombre());
                 txtApellidoCompositor.setText(compositorSeleccionado.getApellido());
                 String edad = String.valueOf(compositorSeleccionado.getEdad());
-                txtEdadCompositor.setText(edad);
-                cbxPaisesCompositor.setSelectedItem(compositorSeleccionado.getNacionalidad());
+                txtEdadCompositor1.setText(edad);
+                txtEdadCompositor.setText(compositorSeleccionado.getNacionalidad());
                 String numComposiones = String.valueOf(compositorSeleccionado.getNumeroDeComposiciones());
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
                 btnBuscarCompositor.setEnabled(true);
                 this.cargarDatosTablaCliente();
 
@@ -337,9 +336,9 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnBuscarCompositorActionPerformed
 
-    private void cbxPaisesCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPaisesCompositorActionPerformed
+    private void txtEdadCompositor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCompositor1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxPaisesCompositorActionPerformed
+    }//GEN-LAST:event_txtEdadCompositor1ActionPerformed
     private void cargarDatosTablaCliente() {
         DefaultTableModel modeloCantante = (DefaultTableModel) this.tblListarCliente.getModel();
         modeloCantante.setNumRows(0);
@@ -348,35 +347,37 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
         Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
         List<Cantante> listaClientes = controladorCompositor.listarClientes(compositorSeleccionado);
         for (Cantante cantante : listaClientes) {
+            if (cantante.getCodigo() != 0) {
+                String codigo = String.valueOf(cantante.getCodigo());
+                String nombre = cantante.getNombre();
+                String apellido = cantante.getApellido();
+                String edad = String.valueOf(cantante.getEdad());
+                String nacionalidad = cantante.getNacionalidad();
+                String nomArtistico = cantante.getNombreArtistico();
+                String genMusical = cantante.getGeneroMusical();
+                String numSencillos = String.valueOf(cantante.getNumeroDeSencillos());
+                String numConciertos = String.valueOf(cantante.getNumeroDeConciertos());
+                String numGiras = String.valueOf(cantante.getNumeroDeGiras());
+                String salario = String.valueOf(cantante.getSalario());
 
-            String codigo = String.valueOf(cantante.getCodigo());
-            String nombre = cantante.getNombre();
-            String apellido = cantante.getApellido();
-            String edad = String.valueOf(cantante.getEdad());
-            String nacionalidad = cantante.getNacionalidad();
-            String nomArtistico = cantante.getNombreArtistico();
-            String genMusical = cantante.getGeneroMusical();
-            String numSencillos = String.valueOf(cantante.getNumeroDeSencillos());
-            String numConciertos = String.valueOf(cantante.getNumeroDeConciertos());
-            String numGiras = String.valueOf(cantante.getNumeroDeGiras());
-            String salario = String.valueOf(cantante.getSalario());
-
-            Object[] rowData = {codigo, nombre, apellido, edad, nacionalidad, nomArtistico, genMusical, numSencillos, numConciertos, numGiras, salario};
-            modeloCantante.addRow(rowData);
+                Object[] rowData = {codigo, nombre, apellido, edad, nacionalidad, nomArtistico, genMusical, numSencillos, numConciertos, numGiras, salario};
+                modeloCantante.addRow(rowData);
+            }
         }
         this.tblListarCliente.setModel(modeloCantante);
     }
-    
+
     private void limpiarCamposCompositor() {
         this.txtCodigoCompositor.setText("");
         this.txtNombreCompositor.setText("");
         this.txtApellidoCompositor.setText("");
         this.txtEdadCompositor.setText("");
-        this.cbxPaisesCompositor.setSelectedItem("--Selecciona un País--");
+        this.txtEdadCompositor.setText("");
         this.txtNumComposicionesCompositor.setText("");
         this.txtSalarioCompositor.setText("");
 
     }
+
     private boolean camposObligatoriosConDatos() {
         if (!this.txtCodigoCompositor.getText().isEmpty()) {
             return true;
@@ -384,29 +385,15 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
             return false;
         }
     }
+
     private void cambiarEstadoCampos(boolean estado) {
         txtCodigoCompositor.setEnabled(!estado);
 
     }
 
-    
-
-
-
-
-
-
-    
-
-
-
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCompositor;
-    private javax.swing.JComboBox<String> cbxPaisesCompositor;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -425,6 +412,7 @@ public class VentanaListarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtApellidoCompositor;
     private javax.swing.JTextField txtCodigoCompositor;
     private javax.swing.JTextField txtEdadCompositor;
+    private javax.swing.JTextField txtEdadCompositor1;
     private javax.swing.JTextField txtNombreCompositor;
     private javax.swing.JTextField txtNumComposicionesCompositor;
     private javax.swing.JTextField txtSalarioCompositor;

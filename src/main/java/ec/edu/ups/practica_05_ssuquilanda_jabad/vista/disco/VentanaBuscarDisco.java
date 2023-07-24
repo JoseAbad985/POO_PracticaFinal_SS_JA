@@ -443,6 +443,7 @@ public class VentanaBuscarDisco extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "El/La cantante con codigo " + codiguito + " no ha sido encontrada !:(");
 
                 this.limpiarCamposCantante();
+                this.limpiarCamposDisco();
             }
         }
     }//GEN-LAST:event_btnBuscarBuscarCantante1ActionPerformed
@@ -518,7 +519,9 @@ public class VentanaBuscarDisco extends javax.swing.JInternalFrame {
                 txtAñoDeLanzamientoIngresarDisco.setText(String.valueOf(disquito.getAnioDeLanzamiento())); 
                 JOptionPane.showMessageDialog(this, "El disco ha sido encontrado!:)");
             }else
-                JOptionPane.showMessageDialog(this, "El disco no ha sido encontrado!");    
+                JOptionPane.showMessageDialog(this, "El disco no ha sido encontrado!");
+                this.limpiarCamposCantante();
+                this.limpiarCamposDisco();
             }    
         }
     }//GEN-LAST:event_btnBuscarBuscarDisco2ActionPerformed

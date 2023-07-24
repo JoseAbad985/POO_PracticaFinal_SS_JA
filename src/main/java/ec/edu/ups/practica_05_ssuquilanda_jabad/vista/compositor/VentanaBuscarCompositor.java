@@ -343,6 +343,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         this.txtNombreCompositor.setText("");
         this.txtApellidoCompositor.setText("");
         this.txtEdadCompositor.setText("");
+        this.txtSalarioCompositor.setText("");
         this.txtNacionalidad.setText("");
         this.txtNumComposicionesCompositor.setText("");
         this.txtSalarioFinalCompositor.setText("");

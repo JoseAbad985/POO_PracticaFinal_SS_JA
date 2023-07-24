@@ -42,7 +42,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
         lblNombreCrearPersona9.setText(mensajes.getString("txtTítulo"));
         lblAñoDeLanzamientoIngresarDisco.setText(mensajes.getString("txtLetra"));
         lblNombreCrearPersona8.setText(mensajes.getString("txtDuraciónEnMinutos"));
-        btnBuscarCancion.setText(mensajes.getString("txtEliminar"));
+        btnBuscarCancion.setText(mensajes.getString("txtBuscar"));
         btnCancelarBuscarCancion.setText(mensajes.getString("txtCancelar"));
     }
     /**
@@ -149,7 +149,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtTiempoCancionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtTiempoCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 250, 30));
+        jPanel4.add(txtTiempoCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 250, 30));
 
         txtLetraCancion.setToolTipText("Ingrese la letra de la cancion");
         txtLetraCancion.setEnabled(false);
@@ -158,7 +158,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtLetraCancionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtLetraCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 250, 30));
+        jPanel4.add(txtLetraCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 250, 30));
 
         txtCodigoCancion.setToolTipText("Ingrese el codigo del Cancion");
         txtCodigoCancion.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +166,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtCodigoCancionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtCodigoCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 250, 30));
+        jPanel4.add(txtCodigoCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 250, 30));
 
         btnAceptarEliminarCancion.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         btnAceptarEliminarCancion.setText("Eliminar");
@@ -195,7 +195,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtTituloCancionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtTituloCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 250, 30));
+        jPanel4.add(txtTituloCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 250, 30));
 
         btnBuscarCancion.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnBuscarCancion.setText("Buscar");
@@ -204,7 +204,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 btnBuscarCancionActionPerformed(evt);
             }
         });
-        jPanel4.add(btnBuscarCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 106, 32));
+        jPanel4.add(btnBuscarCancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 106, 32));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, -1, 340));
 
@@ -432,7 +432,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtLetraCancion.setText(cancion.getLetra());
                 String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
                 txtTiempoCancion.setText(tiempo);
-                JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " ha sido encontrada !:(");
+                JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " ha sido encontrada !:)");
                 btnAceptarEliminarCancion.setEnabled(true);
 
             } else {
@@ -465,7 +465,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSalarioCompositorActionPerformed
 
     private void btnBuscarCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCompositorActionPerformed
-        if (!camposObligatoriosConDatos()) {
+        if (!camposObligatoriosCOMPConDatos()) {
             JOptionPane.showMessageDialog(this, "El codigo del compositor a buscar no ha sido ingresado!");
         } else {
             String codigo = txtCodigoCompositor.getText();
@@ -474,7 +474,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
 
             Compositor compositorSeleccionado = controladorCompositor.buscarCompositor(codiguito);
             if (compositorSeleccionado != null) {
-                cambiarEstadoCampos(true);
+                cambiarEstadoCampos(false);
                 txtCodigoCompositor.setEnabled(false);
                 txtNombreCompositor.setText(compositorSeleccionado.getNombre());
                 txtApellidoCompositor.setText(compositorSeleccionado.getApellido());
@@ -484,12 +484,13 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
+                txtNacionalidadCompositor.setText(compositorSeleccionado.getNacionalidad());
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
+                txtCodigoCancion.setEnabled(true);
                 btnBuscarCancion.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " no ha sido encontrada !:(");
-
                 this.limpiarCamposCompositor();
             }
         }
@@ -511,16 +512,25 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
         this.txtTiempoCancion.setText("");
 
     }
-    private boolean camposObligatoriosConDatos() {
-        if (!this.txtCodigoCancion.getText().isEmpty() && this.txtCodigoCompositor.getText().isEmpty()) {
+    private boolean camposObligatoriosCOMPConDatos() {
+        if (!this.txtCodigoCompositor.getText().isEmpty()) {
             return true;
         } else {
             return false;
         }
     }
+
+    private boolean camposObligatoriosCANPConDatos() {
+        if (!this.txtCodigoCancion.getText().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private void cambiarEstadoCampos(boolean estado) {
-        txtCodigoCancion.setEnabled(!estado);
-        txtCodigoCompositor.setEnabled(!estado);
+        txtCodigoCancion.setEnabled(estado);
+        txtCodigoCompositor.setEnabled(estado);
 
     }
 

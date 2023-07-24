@@ -361,6 +361,7 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
     private void btnCancelarBuscarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarBuscarCancionActionPerformed
         this.setVisible(false);
         this.limpiarCamposCancion();
+        this.limpiarCamposCompositor();
     }//GEN-LAST:event_btnCancelarBuscarCancionActionPerformed
 
     private void txtTiempoCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTiempoCancionActionPerformed
@@ -394,6 +395,7 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " no ha sido encontrada !:(");
 
                 this.limpiarCamposCancion();
+                this.limpiarCamposCompositor();
             }
 
         }
@@ -435,7 +437,7 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
 
             } else {
                 JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " no ha sido encontrada !:(");
-
+                this.limpiarCamposCancion();
                 this.limpiarCamposCompositor();
             }
         }
@@ -475,6 +477,9 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
         }
     }
     private void limpiarCamposCompositor() {
+        
+        
+        
         this.txtCodigoCompositor.setText("");
         this.txtNombreCompositor.setText("");
         this.txtApellidoCompositor.setText("");
