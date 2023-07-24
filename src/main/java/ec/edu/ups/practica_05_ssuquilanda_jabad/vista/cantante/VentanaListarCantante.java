@@ -30,15 +30,16 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
     public VentanaListarCantante(ControladorCantante controladorCantante) {
         initComponents();
         this.controladorCantante = controladorCantante;
-        
+
     }
-    public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel2.setText(mensajes.getString("txtListaDeDiscos"));
         jLabel5.setText(mensajes.getString("txtInstruccionListarCantante1"));
         jLabel3.setText(mensajes.getString("txtListaDeCantantes"));
         btnBuscarCantante.setText(mensajes.getString("txtBuscar"));
-        
+
     }
 
     /**
@@ -66,6 +67,7 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
         btnBuscarCantante = new javax.swing.JButton();
 
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -74,6 +76,7 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
                 formInternalFrameActivated(evt);
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -182,7 +185,7 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         this.cargarDatosTablaCantante();
-        this.cargarDatosTablaDiscos();
+        //this.cargarDatosTablaDiscos();
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void btnBuscarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCantanteActionPerformed
@@ -196,12 +199,16 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
             if (cantante != null) {
                 this.cargarDatosTablaDiscos();
             }
-            }
+        }
     }//GEN-LAST:event_btnBuscarCantanteActionPerformed
 
     private void txtCodigoBuscarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoBuscarCantanteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoBuscarCantanteActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
     private void cargarDatosTablaCantante() {
         DefaultTableModel modeloCantante = (DefaultTableModel) this.tblListarCantante.getModel();
         modeloCantante.setNumRows(0);
@@ -225,39 +232,26 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
         }
         this.tblListarCantante.setModel(modeloCantante);
     }
+
     private void cargarDatosTablaDiscos() {
         DefaultTableModel modelo = (DefaultTableModel) this.tblListarDiscoListarCantante.getModel();
         modelo.setNumRows(0);
         String codigoCantante = txtCodigoBuscarCantante.getText();
         int codiguito = Integer.parseInt(codigoCantante);
         Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
-        
         List<Disco> discografia = controladorCantante.discografia(cantanteSeleccionado);
         for (Disco disco : discografia) {
-
+            if(disco.getCodigo() != 0){
             String codigo = String.valueOf(disco.getCodigo());
             String nombre = disco.getNombre();
             String anioLanzamiento = String.valueOf(disco.getAnioDeLanzamiento());
 
             Object[] rowData = {codigo, nombre, anioLanzamiento};
             modelo.addRow(rowData);
+            }
         }
         this.tblListarDiscoListarCantante.setModel(modelo);
     }
-
-    
-
-
-
-
-
-
-    
-
-
-
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

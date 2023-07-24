@@ -377,7 +377,7 @@ public class VentanaBuscarCantantePorDisco extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "El codigo del disco del cantante a buscar no ha sido ingresado!");
         } else {
             int codiguito = Integer.parseInt(codigo);
-            Cantante cantante = controladorCantante.verCantantexDisco(codiguito);
+            Cantante cantante = controladorCantante.buscarDiscoSinCantante(codiguito);
             if (cantante != null) {
                 String codigoCan = String.valueOf(cantante.getCodigo());
                 txtCodigoCantante.setText(codigoCan);
@@ -399,7 +399,6 @@ public class VentanaBuscarCantantePorDisco extends javax.swing.JInternalFrame {
                 txtSalarioFinalCantante.setText(salarioCanF);
                 txtSalarioCantante1.setText(salarioCan);
                 JOptionPane.showMessageDialog(this, "El/La cantante con disco de codigo " + codiguito + "ha sido encontrado  exitosamente1:)");
-
             } else {
                 JOptionPane.showMessageDialog(this, "El/La cantante con disco de codigo " + codiguito + " no ha sido encontrada !:(");
 

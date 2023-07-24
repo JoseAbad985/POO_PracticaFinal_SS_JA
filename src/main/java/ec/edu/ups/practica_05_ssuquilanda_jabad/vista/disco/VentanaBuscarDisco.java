@@ -512,7 +512,7 @@ public class VentanaBuscarDisco extends javax.swing.JInternalFrame {
             int codiguito = Integer.parseInt(codigoCantante);
             Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
             if (cantanteSeleccionado != null) {
-                Disco disquito = cantanteSeleccionado.buscarDisco(codigoDisco);
+                Disco disquito = controladorCantante.buscarDisco(cantanteSeleccionado,codigoDisco);
                 if(disquito != null){
                 txtNombreDisco.setText(disquito.getNombre());
                 txtAñoDeLanzamientoIngresarDisco.setText(String.valueOf(disquito.getAnioDeLanzamiento())); 

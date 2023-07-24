@@ -24,19 +24,15 @@ public class ControladorCantante {
     private Disco disco;
     //objetos DAO
     private ICantanteDAO cantanteDAO;
-    
-    
 
     public ControladorCantante(ICantanteDAO cantanteDAO) {
         this.cantanteDAO = cantanteDAO;
     }
-    
 
     //llama al DAO para guardar un cantante
     public void registrarCantante(Cantante cantante) {
         this.cantante = cantante;
-        
-        
+
         cantanteDAO.create(cantante);
     }
 
@@ -44,7 +40,9 @@ public class ControladorCantante {
     public Cantante buscarCantante(int codigo) {
 
         this.cantante = cantanteDAO.read(codigo);
-        cantante.setSalarioFinal(cantante.calcularSalario(cantante.getSalario()));
+        if (this.cantante != null) {
+            cantante.setSalarioFinal(cantante.calcularSalario(cantante.getSalario()));
+        }
         return this.cantante;
     }
 
@@ -64,7 +62,7 @@ public class ControladorCantante {
 
     //llama al DAO para actualizar un cantante
     public boolean actualizarCantante(Cantante cantante) {
-         Cantante cantanteEncontrado = this.buscarCantante(cantante.getCodigo());
+        Cantante cantanteEncontrado = this.buscarCantante(cantante.getCodigo());
         if (cantanteEncontrado != null) {
             cantanteDAO.update(cantante);
             return true;
@@ -83,51 +81,66 @@ public class ControladorCantante {
     }
 
     //llama al DAO para obtener todos los cantantes y luego los muestra en la vista
-    public List<Cantante> listarCantantes(){
+    public List<Cantante> listarCantantes() {
         return cantanteDAO.findAll();
     }
+
     //Metodos de Disco
-    public void agregarDisco(Cantante cantante, Disco disco) {
-        this.cantante = cantante;
-        this.disco = disco;
-        cantante.agregarDisco(disco);
+    public void agregarDisco(Cantante cantanteSeleccionado, Disco disco) {
+        System.out.println("El codigo del cantante que estoy pasando al metodo es: " + cantanteSeleccionado.getCodigo());
+        cantanteDAO.createDisc(cantanteSeleccionado, disco);
     }
-    public Disco buscarDisco (Cantante cantante, int codigo){
+
+    public Disco buscarDisco(Cantante cantante, int codigo) {
         this.cantante = cantante;
-        Disco disco = cantante.buscarDisco(codigo);
-        if(disco!=null){
+        Disco disco = cantanteDAO.readDisc(cantante, codigo);
+        if (disco != null) {
             return disco;
-        }else{
+        } else {
             return null;
         }
     }
+    
+    public Cantante buscarDiscoSinCantante(int codigo) {
+        Cantante cantante = cantanteDAO.readDiscWOS(codigo);
+        double salarioF = cantante.calcularSalario(cantante.getSalario());
+        cantante.setSalarioFinal(salarioF);
+        if (cantante != null) {
+            return cantante;
+        } else {
+            return null;
+        }
+    }
+    
     public boolean eliminarDisco(Cantante cantante, Disco disco) {
         Cantante cantanteEncontrado = this.cantante;
         if (cantanteEncontrado != null) {
-            cantanteEncontrado.eliminarDisco(disco);
+            cantanteDAO.deleteDisc(cantante, disco);
             return true;
         }
         return false;
     }
+
     public boolean actualizarDisco(Cantante cantante, Disco disco) {
         Cantante cantanteEncontrado = this.cantante;
         if (cantanteEncontrado != null) {
-            cantanteEncontrado.actualizarDisco(disco);
+            cantanteDAO.updateDisc(cantante, disco);
+
             return true;
         }
         return false;
     }
+
+
     public List<Disco> discografia(Cantante cantante) {
-        Cantante cantanteEncontrado = this.cantante;
+        Cantante cantanteEncontrado = cantante;
         if (cantanteEncontrado != null) {
-            return cantanteEncontrado.listarDiscos();
+            List<Disco> discografia = cantanteDAO.findAllDiscs(cantante);
+            return discografia;
         } else {
             return null;
         }
 
     }
-    
+
 }
-
-    
-

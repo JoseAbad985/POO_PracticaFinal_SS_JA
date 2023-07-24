@@ -19,6 +19,7 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
 
     private ControladorCantante controladorCantante;
     private ResourceBundle mensajes;
+
     /**
      * Creates new form VentanaCrearDisco
      */
@@ -26,21 +27,21 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
         initComponents();
         this.controladorCantante = controladorCantante;
     }
-    
-    public void cambiarIdioma(Locale localizacion){
+
+    public void cambiarIdioma(Locale localizacion) {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         jLabel1.setText(mensajes.getString("txtIngresarCódigoDelCantanteDesdeElCualActualizarUnDisco"));
         jLabel2.setText(mensajes.getString("txtIngresarCódigoDelDiscoAActualizar"));
         lblNombreCrearPersona5.setText(mensajes.getString("txtCódigo"));
-        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));        
-        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));        
-        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));        
-        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));   
-        lblNomArtisticoBuscarCantante1.setText(mensajes.getString("txtNombreArtístico"));        
-        lblGenMusicalBuscarCantante1.setText(mensajes.getString("txtGéneroMusical"));        
-        lblNumSencillosBuscarCantante1.setText(mensajes.getString("txtNúmeroDeSencillos"));        
+        lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));
+        lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));
+        lblNombreCrearPersona6.setText(mensajes.getString("txtEdad"));
+        lblNacionalidadBuscarCantante1.setText(mensajes.getString("txtNacionalidad"));
+        lblNomArtisticoBuscarCantante1.setText(mensajes.getString("txtNombreArtístico"));
+        lblGenMusicalBuscarCantante1.setText(mensajes.getString("txtGéneroMusical"));
+        lblNumSencillosBuscarCantante1.setText(mensajes.getString("txtNúmeroDeSencillos"));
         lblNumConciertosBuscarCantante1.setText(mensajes.getString("txtNúmeroDeConciertos"));
-        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeGiras"));        
+        lblNumGirasBuscarCantante1.setText(mensajes.getString("txtNúmeroDeGiras"));
         lblSalarioBuscarCantante1.setText(mensajes.getString("txtSalarioBase"));
         lblNombreCrearPersona7.setText(mensajes.getString("txtCódigo"));
         lblNombreCrearPersona8.setText(mensajes.getString("txtNombre"));
@@ -521,16 +522,17 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
         String codigoCantante = txtCodigoCantante.getText();
         int codiguito = Integer.parseInt(codigoCantante);
         Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
-        if (cantanteSeleccionado != null) {
-            Disco disquito = cantanteSeleccionado.buscarDisco(codigoDisco);
-            disquito.setCodigo(Integer.parseInt(txtCodigoDisco.getText()));
-            disquito.setNombre(txtNombreDisco.getText());
-            disquito.setAnioDeLanzamiento(Integer.parseInt(txtAñoDeLanzamientoIngresarDisco.getText()));
-
-            this.limpiarCamposCantante();
-            this.limpiarCamposDisco();
-            JOptionPane.showMessageDialog(this, "El disco  ha sido actualizado exitosamente !:)");
-
+        String anio = txtAñoDeLanzamientoIngresarDisco.getText();
+        int anio2 = Integer.parseInt(anio);
+        Disco discoSeleccionado = new Disco(codigoDisco, txtNombreDisco.getText(), anio2);
+        if (cantanteSeleccionado != null && discoSeleccionado != null) {
+            if (controladorCantante.actualizarDisco(cantanteSeleccionado, discoSeleccionado)) {
+                this.limpiarCamposCantante();
+                this.limpiarCamposDisco();
+                JOptionPane.showMessageDialog(this, "El disco  ha sido actualizado exitosamente !:)");
+            } else {
+                JOptionPane.showMessageDialog(this, "El disco no ha sido actualizado!:(");
+            }
         }
 
     }//GEN-LAST:event_btnAceptarIngresarDiscoActionPerformed
@@ -548,7 +550,7 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
             int codiguito = Integer.parseInt(codigoCantante);
             Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
             if (cantanteSeleccionado != null) {
-                Disco disquito = cantanteSeleccionado.buscarDisco(codigoDisco);
+                Disco disquito = controladorCantante.buscarDisco(cantanteSeleccionado, codigoDisco);
                 txtNombreDisco.setText(disquito.getNombre());
                 txtAñoDeLanzamientoIngresarDisco.setText(String.valueOf(disquito.getAnioDeLanzamiento()));
             }

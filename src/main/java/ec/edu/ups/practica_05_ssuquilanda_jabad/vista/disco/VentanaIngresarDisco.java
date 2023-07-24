@@ -369,7 +369,7 @@ public class VentanaIngresarDisco extends javax.swing.JInternalFrame {
                 btnAceptarDiscoActionPerformed(evt);
             }
         });
-        jPanel4.add(btnAceptarDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 100, 30));
+        jPanel4.add(btnAceptarDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 110, 30));
 
         lblicono1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disco.png"))); // NOI18N
         jPanel4.add(lblicono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 290, 300));

@@ -31,7 +31,7 @@ public class VentanaListarDisco extends javax.swing.JInternalFrame {
     
     public void cambiarIdioma(Locale localizacion){
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
-        jLabel1.setText(mensajes.getString("txtIngresarCódigoDelCompositorParaListarSusDiscos"));
+        jLabel1.setText(mensajes.getString("txtIngresarCódigoDelCompositorParaListarSusCanciones"));
         
         lblNombreCrearPersona2.setText(mensajes.getString("txtCódigo"));
         lblNombreCrearPersona1.setText(mensajes.getString("txtNombre"));        
@@ -363,7 +363,7 @@ public class VentanaListarDisco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        this.cargarDatosTablaDiscos();
+        
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void txtSalarioBaseCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalarioBaseCantanteActionPerformed
@@ -460,18 +460,28 @@ public class VentanaListarDisco extends javax.swing.JInternalFrame {
         String codigoCantante = txtCodigoCantante.getText();
         int codiguito = Integer.parseInt(codigoCantante);
         Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
+        
+        
         List<Disco> discografia = controladorCantante.discografia(cantanteSeleccionado);
+        
+        
+        System.out.println(discografia.size());
+        
         for (Disco disco : discografia) {
-
+            if(disco.getCodigo() != 0){
             String codigo = String.valueOf(disco.getCodigo());
             String nombre = disco.getNombre();
             String anioLanzamiento = String.valueOf(disco.getAnioDeLanzamiento());
 
             Object[] rowData = {codigo, nombre, anioLanzamiento};
             modelo.addRow(rowData);
+            }
         }
         this.tblListarDiscoListarCantante.setModel(modelo);
     }
+    
+    
+    
     private void limpiarCampos() {
         this.txtCodigoCantante.setText("");
         this.txtNombreCantante.setText("");

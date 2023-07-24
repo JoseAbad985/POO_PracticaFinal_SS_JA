@@ -36,9 +36,8 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         lblNombreCantante.setText(mensajes.getString("txtNombre"));        
         lblApellidoCantante.setText(mensajes.getString("txtApellido"));        
         lblEdadCantante.setText(mensajes.getString("txtEdad"));        
-        lblNacionalidadCantante.setText(mensajes.getString("txtNacionalidad"));   
-        cbxPaisesActualizarCantante.setSelectedItem(mensajes.getString("txtSeleccionarPaís"));
-        cbxGeneroMusicalCantante.setSelectedItem(mensajes.getString("txtSeleccionarGénero"));
+        lblNacionalidadCantante.setText(mensajes.getString("txtNacionalidad"));
+        lblGeneroCantante.setText(mensajes.getString("txtSeleccionarGénero"));
         lblNombreArtCantante.setText(mensajes.getString("txtNombreArtístico"));        
         lblGeneroCantante.setText(mensajes.getString("txtGéneroMusical"));        
         lblNumSencillosCantante.setText(mensajes.getString("txtNúmeroDeSencillos"));        
@@ -78,16 +77,16 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         lblNumConciertosCantante = new javax.swing.JLabel();
         txtNomArtisticoCantante = new javax.swing.JTextField();
         txtApellidoCantante = new javax.swing.JTextField();
-        txtEdadCantante = new javax.swing.JTextField();
+        txtGMCantante = new javax.swing.JTextField();
         txtNumSencillosCantante = new javax.swing.JTextField();
         txtNumConciertosCantante = new javax.swing.JTextField();
         txtNumGirasCantante = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblSalarioCantante = new javax.swing.JLabel();
         txtSalarioCantante = new javax.swing.JTextField();
-        cbxPaisesActualizarCantante = new javax.swing.JComboBox<>();
         btnEliminarEliminarCantante = new javax.swing.JButton();
-        cbxGeneroMusicalCantante = new javax.swing.JComboBox<>();
+        txtEdadCantante = new javax.swing.JTextField();
+        txtNacionalidadCantante2 = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresar Datos Actualizar Cantante"));
         setClosable(true);
@@ -225,14 +224,14 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         });
         panelCantante.add(txtApellidoCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 250, 30));
 
-        txtEdadCantante.setToolTipText("Ingrese le edad del cantante");
-        txtEdadCantante.setEnabled(false);
-        txtEdadCantante.addActionListener(new java.awt.event.ActionListener() {
+        txtGMCantante.setToolTipText("Ingrese le edad del cantante");
+        txtGMCantante.setEnabled(false);
+        txtGMCantante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEdadCantanteActionPerformed(evt);
+                txtGMCantanteActionPerformed(evt);
             }
         });
-        panelCantante.add(txtEdadCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 250, 30));
+        panelCantante.add(txtGMCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 250, 30));
 
         txtNumSencillosCantante.setToolTipText("Ingrese el numero de sencillos del cantante");
         txtNumSencillosCantante.setEnabled(false);
@@ -278,15 +277,6 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         });
         panelCantante.add(txtSalarioCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 250, 30));
 
-        cbxPaisesActualizarCantante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un País--" }));
-        cbxPaisesActualizarCantante.setEnabled(false);
-        cbxPaisesActualizarCantante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxPaisesActualizarCantanteActionPerformed(evt);
-            }
-        });
-        panelCantante.add(cbxPaisesActualizarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 250, 30));
-
         btnEliminarEliminarCantante.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnEliminarEliminarCantante.setText("Eliminar");
         btnEliminarEliminarCantante.setEnabled(false);
@@ -297,9 +287,23 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         });
         panelCantante.add(btnEliminarEliminarCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 110, 32));
 
-        cbxGeneroMusicalCantante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona un Género--" }));
-        cbxGeneroMusicalCantante.setEnabled(false);
-        panelCantante.add(cbxGeneroMusicalCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 250, 30));
+        txtEdadCantante.setToolTipText("Ingrese le edad del cantante");
+        txtEdadCantante.setEnabled(false);
+        txtEdadCantante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEdadCantanteActionPerformed(evt);
+            }
+        });
+        panelCantante.add(txtEdadCantante, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 250, 30));
+
+        txtNacionalidadCantante2.setToolTipText("Ingrese le edad del cantante");
+        txtNacionalidadCantante2.setEnabled(false);
+        txtNacionalidadCantante2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNacionalidadCantante2ActionPerformed(evt);
+            }
+        });
+        panelCantante.add(txtNacionalidadCantante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 250, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -329,7 +333,8 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
                 txtNombreCantante.setText(cantante.getNombre());
                 txtApellidoCantante.setText(cantante.getApellido());
                 txtEdadCantante.setText(String.valueOf(cantante.getEdad()));
-                cbxPaisesActualizarCantante.setSelectedItem(cantante.getNacionalidad());
+                txtNacionalidadCantante2.setText(cantante.getNacionalidad());
+                txtGMCantante.setText(cantante.getGeneroMusical());
                 txtNomArtisticoCantante.setText(cantante.getNombreArtistico());
                 txtNumSencillosCantante.setText(String.valueOf(cantante.getNumeroDeSencillos()));
                 txtNumConciertosCantante.setText(String.valueOf(cantante.getNumeroDeConciertos()));
@@ -346,9 +351,9 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         this.txtCodigoCantante.setText("");
         this.txtNombreCantante.setText("");
         this.txtApellidoCantante.setText("");
+        this.txtGMCantante.setText("");
+        this.txtNacionalidadCantante2.setText("");
         this.txtEdadCantante.setText("");
-        this.cbxPaisesActualizarCantante.setSelectedItem("--Selecciona un País--");
-        this.cbxGeneroMusicalCantante.setSelectedItem("");
         this.txtNomArtisticoCantante.setText("");
         this.txtNumSencillosCantante.setText("");
         this.txtNumConciertosCantante.setText("");
@@ -360,10 +365,10 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
     public void cambiarEstadoCampos(boolean estado) {
         txtNombreCantante.setEditable(estado);
         txtApellidoCantante.setEditable(estado);
+        txtGMCantante.setEditable(estado);
         txtEdadCantante.setEditable(estado);
-        cbxPaisesActualizarCantante.setEditable(estado);
         txtNomArtisticoCantante.setEditable(estado);
-        cbxGeneroMusicalCantante.setEditable(estado);
+        txtNacionalidadCantante2.setEditable(estado);
         txtNumSencillosCantante.setEditable(estado);
         txtNumConciertosCantante.setEditable(estado);
         txtNumGirasCantante.setEditable(estado);
@@ -404,14 +409,6 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         return paises;
     }
 
-    private void cargarDatosPaises() {
-        DefaultComboBoxModel<String> modelo = (DefaultComboBoxModel) this.cbxPaisesActualizarCantante.getModel();
-        List<String> paises = generarPaises();
-        modelo.removeAllElements();
-        for (String pais : paises) {
-            modelo.addElement(pais);
-        }
-    }
     
      public List<String> generarGeneros() {
         List<String> generosMusicales = new ArrayList<>();
@@ -428,14 +425,6 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         return generosMusicales;
     }
      
-    private void cargarDatosGeneros() {
-        DefaultComboBoxModel<String> modelo = (DefaultComboBoxModel) this.cbxGeneroMusicalCantante.getModel();
-        List<String> generosMusicales = generarGeneros();
-        modelo.removeAllElements();
-        for (String genero : generosMusicales) {
-            modelo.addElement(genero);
-        }
-    }
 
     private boolean camposObligatoriosConDatos() {
         if (!this.txtCodigoCantante.getText().isEmpty()) {
@@ -470,9 +459,9 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoCantanteActionPerformed
 
-    private void txtEdadCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCantanteActionPerformed
+    private void txtGMCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGMCantanteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEdadCantanteActionPerformed
+    }//GEN-LAST:event_txtGMCantanteActionPerformed
 
     private void txtNumSencillosCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumSencillosCantanteActionPerformed
         // TODO add your handling code here:
@@ -490,12 +479,8 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSalarioCantanteActionPerformed
 
-    private void cbxPaisesActualizarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPaisesActualizarCantanteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxPaisesActualizarCantanteActionPerformed
-
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        cargarDatosPaises();
+
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void btnEliminarEliminarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEliminarCantanteActionPerformed
@@ -514,13 +499,19 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarEliminarCantanteActionPerformed
 
+    private void txtEdadCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadCantanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEdadCantanteActionPerformed
+
+    private void txtNacionalidadCantante2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNacionalidadCantante2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNacionalidadCantante2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCantante;
     private javax.swing.JButton btnCancelarCantante;
     private javax.swing.JButton btnEliminarEliminarCantante;
-    private javax.swing.JComboBox<String> cbxGeneroMusicalCantante;
-    private javax.swing.JComboBox<String> cbxPaisesActualizarCantante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblApellidoCantante;
     private javax.swing.JLabel lblCantante;
@@ -540,6 +531,8 @@ public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtApellidoCantante;
     private javax.swing.JTextField txtCodigoCantante;
     private javax.swing.JTextField txtEdadCantante;
+    private javax.swing.JTextField txtGMCantante;
+    private javax.swing.JTextField txtNacionalidadCantante2;
     private javax.swing.JTextField txtNomArtisticoCantante;
     private javax.swing.JTextField txtNombreCantante;
     private javax.swing.JTextField txtNumConciertosCantante;

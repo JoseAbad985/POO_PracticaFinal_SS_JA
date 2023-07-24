@@ -6,7 +6,9 @@ package ec.edu.ups.practica_05_ssuquilanda_jabad.dao;
 
 import ec.edu.ups.practica_05_ssuquilanda_jabad.idao.ICantanteDAO;
 import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Cantante;
+import ec.edu.ups.practica_05_ssuquilanda_jabad.modelo.Disco;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -39,150 +41,47 @@ public class CantanteDAO implements ICantanteDAO {
         }
         try {
             if (archivoCantante.length() == 0) {
-                archivoCantante.seek(archivoCantante.length());
-                archivoCantante.writeInt(cantante.getCodigo());
+                archivoCantante.seek(0);
+                archivoCantante.writeInt(cantante.getCodigo());//4
                 String nombre = cantante.getNombre();
-                if (nombre.length() < 25) {
-                    StringBuilder sb = new StringBuilder(nombre);
-                    while (sb.length() < 25) {
-                        sb.append(" ");
-                    }
-                    nombre = sb.toString();
-                } else if (nombre.length() > 25) {
-                    int eliminar = nombre.length() - 25;
-                    nombre = nombre.substring(0, nombre.length() - eliminar);
-                }
-                archivoCantante.writeUTF(nombre);
+                CalcularTamaño(archivoCantante, nombre);
                 String apellido = cantante.getApellido();
-                if (apellido.length() < 25) {
-                    StringBuilder sbA = new StringBuilder(apellido);
-                    while (sbA.length() < 25) {
-                        sbA.append(" ");
-                    }
-                    apellido = sbA.toString();
-                } else if (apellido.length() > 25) {
-                    int eliminar = apellido.length() - 25;
-                    apellido = apellido.substring(0, apellido.length() - eliminar);
-                }
-                archivoCantante.writeUTF(apellido);
-                archivoCantante.writeInt(cantante.getEdad());
+                CalcularTamaño(archivoCantante, apellido);
+                archivoCantante.writeInt(cantante.getEdad());//4
                 String Nacionalidad = cantante.getNacionalidad();
-                if (Nacionalidad.length() < 25) {
-                    StringBuilder sbN = new StringBuilder(Nacionalidad);
-                    while (sbN.length() < 25) {
-                        sbN.append(" ");
-                    }
-                    Nacionalidad = sbN.toString();
-                } else if (Nacionalidad.length() > 25) {
-                    int eliminar = Nacionalidad.length() - 25;
-                    Nacionalidad = Nacionalidad.substring(0, Nacionalidad.length() - eliminar);
-                }
-                archivoCantante.writeUTF(Nacionalidad);
+                CalcularTamaño(archivoCantante, Nacionalidad);
                 String NombreArtistico = cantante.getNombreArtistico();
-                if (NombreArtistico.length() < 25) {
-                    StringBuilder sbNA = new StringBuilder(NombreArtistico);
-                    while (sbNA.length() < 25) {
-                        sbNA.append(" ");
-                    }
-                    NombreArtistico = sbNA.toString();
-                } else if (NombreArtistico.length() > 25) {
-                    int eliminar = NombreArtistico.length() - 25;
-                    NombreArtistico = NombreArtistico.substring(0, NombreArtistico.length() - eliminar);
-                }
-                
-                archivoCantante.writeUTF(NombreArtistico);
+                CalcularTamaño(archivoCantante, NombreArtistico);
                 String GeneroMusical = cantante.getGeneroMusical();
-                if (GeneroMusical.length() < 25) {
-                    StringBuilder sbGM = new StringBuilder(GeneroMusical);
-                    while (sbGM.length() < 25) {
-                        sbGM.append(" ");
-                    }
-                    GeneroMusical = sbGM.toString();
-                } else if (GeneroMusical.length() > 25) {
-                    int eliminar = GeneroMusical.length() - 25;
-                    GeneroMusical = GeneroMusical.substring(0, GeneroMusical.length() - eliminar);
-                }
-                
-                archivoCantante.writeUTF(GeneroMusical);
-                archivoCantante.writeInt(cantante.getNumeroDeSencillos());
-                archivoCantante.writeInt(cantante.getNumeroDeConciertos());
-                archivoCantante.writeInt(cantante.getNumeroDeGiras());
-                archivoCantante.writeDouble(cantante.getSalario());
-                archivoCantante.writeDouble(cantante.getSalarioFinal());
+                CalcularTamaño(archivoCantante, GeneroMusical);
+                archivoCantante.writeInt(cantante.getNumeroDeSencillos());//4
+                archivoCantante.writeInt(cantante.getNumeroDeConciertos());//4
+                archivoCantante.writeInt(cantante.getNumeroDeGiras());//4
+                archivoCantante.writeDouble(cantante.getSalario());//8
+                archivoCantante.writeDouble(cantante.getSalarioFinal());//8
+                GenerarVacios(archivoCantante);
                 System.out.println(archivoCantante.length());
                 archivoCantante.close();
             } else {
                 archivoCantante.seek(archivoCantante.length());
-                archivoCantante.writeChars("\n");
-                archivoCantante.writeInt(cantante.getCodigo());
+                archivoCantante.writeInt(cantante.getCodigo());//4
                 String nombre = cantante.getNombre();
-                if (nombre.length() < 25) {
-                    StringBuilder sb = new StringBuilder(nombre);
-                    while (sb.length() < 25) {
-                        sb.append(" ");
-                    }
-                    nombre = sb.toString();
-                } else if (nombre.length() > 25) {
-                    int eliminar = nombre.length() - 25;
-                    nombre = nombre.substring(0, nombre.length() - eliminar);
-                }
-                archivoCantante.writeUTF(nombre);
+                CalcularTamaño(archivoCantante, nombre);
                 String apellido = cantante.getApellido();
-                if (apellido.length() < 25) {
-                    StringBuilder sbA = new StringBuilder(apellido);
-                    while (sbA.length() < 25) {
-                        sbA.append(" ");
-                    }
-                    apellido = sbA.toString();
-                } else if (apellido.length() > 25) {
-                    int eliminar = apellido.length() - 25;
-                    apellido = apellido.substring(0, apellido.length() - eliminar);
-                }
-                archivoCantante.writeUTF(apellido);
-                archivoCantante.writeInt(cantante.getEdad());
+                CalcularTamaño(archivoCantante, apellido);
+                archivoCantante.writeInt(cantante.getEdad());//4
                 String Nacionalidad = cantante.getNacionalidad();
-                if (Nacionalidad.length() < 25) {
-                    StringBuilder sbN = new StringBuilder(Nacionalidad);
-                    while (sbN.length() < 25) {
-                        sbN.append(" ");
-                    }
-                    Nacionalidad = sbN.toString();
-                } else if (Nacionalidad.length() > 25) {
-                    int eliminar = Nacionalidad.length() - 25;
-                    Nacionalidad = Nacionalidad.substring(0, Nacionalidad.length() - eliminar);
-                }
-                archivoCantante.writeUTF(Nacionalidad);
+                CalcularTamaño(archivoCantante, Nacionalidad);
                 String NombreArtistico = cantante.getNombreArtistico();
-                if (NombreArtistico.length() < 25) {
-                    StringBuilder sbNA = new StringBuilder(NombreArtistico);
-                    while (sbNA.length() < 25) {
-                        sbNA.append(" ");
-                    }
-                    NombreArtistico = sbNA.toString();
-                } else if (NombreArtistico.length() > 25) {
-                    int eliminar = NombreArtistico.length() - 25;
-                    NombreArtistico = NombreArtistico.substring(0, NombreArtistico.length() - eliminar);
-                }
-                
-                archivoCantante.writeUTF(NombreArtistico);
+                CalcularTamaño(archivoCantante, NombreArtistico);
                 String GeneroMusical = cantante.getGeneroMusical();
-                if (GeneroMusical.length() < 25) {
-                    StringBuilder sbGM = new StringBuilder(GeneroMusical);
-                    while (sbGM.length() < 25) {
-                        sbGM.append(" ");
-                    }
-                    GeneroMusical = sbGM.toString();
-                } else if (GeneroMusical.length() > 25) {
-                    int eliminar = GeneroMusical.length() - 25;
-                    GeneroMusical = GeneroMusical.substring(0, GeneroMusical.length() - eliminar);
-                }
-                
-                archivoCantante.writeUTF(GeneroMusical);
-                archivoCantante.writeInt(cantante.getNumeroDeSencillos());
-                archivoCantante.writeInt(cantante.getNumeroDeConciertos());
-                archivoCantante.writeInt(cantante.getNumeroDeGiras());
-                archivoCantante.writeDouble(cantante.getSalario());
-                archivoCantante.writeDouble(cantante.getSalarioFinal());
+                CalcularTamaño(archivoCantante, GeneroMusical);
+                archivoCantante.writeInt(cantante.getNumeroDeSencillos());//4
+                archivoCantante.writeInt(cantante.getNumeroDeConciertos());//4
+                archivoCantante.writeInt(cantante.getNumeroDeGiras());//4
+                archivoCantante.writeDouble(cantante.getSalario());//8
+                archivoCantante.writeDouble(cantante.getSalarioFinal());//8
+                GenerarVacios(archivoCantante);
                 archivoCantante.close();
             }
         } catch (IOException ex) {
@@ -193,112 +92,443 @@ public class CantanteDAO implements ICantanteDAO {
     @Override
     public Cantante read(int id) {
         try {
-            archivoCantante = new RandomAccessFile(cantantesFile, "r");
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
         } catch (IOException ex) {
             System.out.println("Error al crear");
         }
-        
+
         try {
             boolean encuentra = false;
             int pos = 0;
-            while (!encuentra) {
+            while (!encuentra && pos < archivoCantante.length()) {
                 archivoCantante.seek(pos);
                 int cod = archivoCantante.readInt();
-                System.out.println(cod); 
-               if (cod == id) {
-                    encuentra = true;                    
+                if (cod == id) {
+                    encuentra = true;
                     //Para encontrar el nombre
-                    archivoCantante.seek(pos+ 4); //Posicion donde comienza el nombre(0) + 4
+                    // archivoCantante.seek(pos + 4); //Posicion donde comienza el nombre(0) + 4
                     String nombre = archivoCantante.readUTF();
                     //Para encontrar el apellido
-                    archivoCantante.seek(pos+31);//Posicion donde comienza el apellido(25) + 4(del anterior) + 2 
                     String apellido = archivoCantante.readUTF();
                     //Para encontrar la edad
-                    archivoCantante.seek(pos+58); //Posicion donde comienza la edad(54)+4
                     int edad = archivoCantante.readInt();
                     //Para encontrar la nacionalidad
-                    archivoCantante.seek(pos+62);//Posicion donde comienza la nacionalidad(58)+4
                     String nacionalidad = archivoCantante.readUTF();
                     //Para encontrar el nombre artistico
-                    archivoCantante.seek(pos+89);
                     String nombreArtistico = archivoCantante.readUTF();
                     //Para encontrar el Genero musical
-                    archivoCantante.seek(pos+116);
                     String generoMusical = archivoCantante.readUTF();
                     //Para encontrar  el # Sencillos
-                    archivoCantante.seek(pos + 143);
                     int sencillos = archivoCantante.readInt();
                     //Para encontrar el # Conciertos
-                    archivoCantante.seek(pos + 147);
                     int conciertos = archivoCantante.readInt();
                     //Para encontrar el # Giras
-                    archivoCantante.seek(pos + 151);
                     int giras = archivoCantante.readInt();
                     //Para encontrar el salario
-                    archivoCantante.seek(pos+ 155);
                     double salario = archivoCantante.readDouble();
-                    return new Cantante(nombreArtistico, generoMusical, sencillos, conciertos,giras, cod, nombre, apellido, edad, nacionalidad, salario);
-                } else {
-                    if(pos+173 < archivoCantante.length()){
-                        pos += 173; //378;
-                    }
+                    return new Cantante(nombreArtistico, generoMusical, sencillos, conciertos, giras, cod, nombre, apellido, edad, nacionalidad, salario);
                 }
+                pos += 522;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            archivoCantante.close();
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public void update(Cantante cantante2) {
+        try {
+            System.out.println("El tamaño del archivo antes de actualizar es: " + archivoCantante.length());
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                if (cod == cantante2.getCodigo()) {
+                    encuentra = true;
+                    archivoCantante.seek(pos);
+                    archivoCantante.writeInt(cantante2.getCodigo());//4
+                    String nombre = cantante2.getNombre();
+                    CalcularTamaño(archivoCantante, nombre);
+                    String apellido = cantante2.getApellido();
+                    CalcularTamaño(archivoCantante, apellido);
+                    archivoCantante.writeInt(cantante2.getEdad());//4
+                    String Nacionalidad = cantante2.getNacionalidad();
+                    CalcularTamaño(archivoCantante, Nacionalidad);
+                    String NombreArtistico = cantante2.getNombreArtistico();
+                    CalcularTamaño(archivoCantante, NombreArtistico);
+                    String GeneroMusical = cantante2.getGeneroMusical();
+                    CalcularTamaño(archivoCantante, GeneroMusical);
+                    archivoCantante.writeInt(cantante2.getNumeroDeSencillos());//4
+                    archivoCantante.writeInt(cantante2.getNumeroDeConciertos());//4
+                    archivoCantante.writeInt(cantante2.getNumeroDeGiras());//4
+                    archivoCantante.writeDouble(cantante2.getSalario());//8
+                    archivoCantante.writeDouble(cantante2.getSalarioFinal());//8
+                    // GenerarVacios(archivoCantante);
+                    System.out.println("El tamaño del archivo despues de actualizar algo es: " + archivoCantante.length());
+                    archivoCantante.close();
+                    break;
+                }
+                pos += 522;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @Override
+    public void delete(Cantante cantante2) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                if (cod == cantante2.getCodigo()) {
+                    int longuitud = (int) archivoCantante.length();
+
+                    encuentra = true;
+                    archivoCantante.seek(pos + 522);
+                    byte[] cantanteEliminado = new byte[longuitud - (pos + 522)];
+                    archivoCantante.read(cantanteEliminado);
+                    archivoCantante.seek(pos);
+                    archivoCantante.write(cantanteEliminado);
+                    archivoCantante.setLength(longuitud - 522);
+                    archivoCantante.close();
+                }
+                pos += 522;
+
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void CalcularTamaño(RandomAccessFile archivoCantante, String prueba) throws IOException {
+        if (prueba.length() < 25) {
+            StringBuilder sbGM = new StringBuilder(prueba);
+            while (sbGM.length() < 25) {
+                sbGM.append(" ");
+            }
+            prueba = sbGM.toString();
+        } else if (prueba.length() > 25) {
+            int eliminar = prueba.length() - 25;
+            prueba = prueba.substring(0, prueba.length() - eliminar);
+        }
+        archivoCantante.writeUTF(prueba);
+    }
+
+    public void GenerarVacios(RandomAccessFile archivoCantante) throws IOException {
+        // int n = 0;
+        //while (n < 117) {
+        //  archivoCantante.writeUTF(" ");
+        //n += 1;
+        //}
+        byte[] bytes = new byte[351];
+        archivoCantante.write(bytes);
+    }
+
+    public List<Cantante> findAll() {
+
+        List<Cantante> cantantes = new ArrayList<>();
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+
+        try {
+
+            int pos = 0;
+            while (pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                //Para encontrar el nombre
+                int codigo = archivoCantante.readInt();
+                // archivoCantante.seek(pos + 4); //Posicion donde comienza el nombre(0) + 4
+                String nombre = archivoCantante.readUTF();
+                //Para encontrar el apellido
+                String apellido = archivoCantante.readUTF();
+                //Para encontrar la edad
+                int edad = archivoCantante.readInt();
+                //Para encontrar la nacionalidad
+                String nacionalidad = archivoCantante.readUTF();
+                //Para encontrar el nombre artistico
+                String nombreArtistico = archivoCantante.readUTF();
+                //Para encontrar el Genero musical
+                String generoMusical = archivoCantante.readUTF();
+                //Para encontrar  el # Sencillos
+                int sencillos = archivoCantante.readInt();
+                //Para encontrar el # Conciertos
+                int conciertos = archivoCantante.readInt();
+                //Para encontrar el # Giras
+                int giras = archivoCantante.readInt();
+                //Para encontrar el salario
+                double salario = archivoCantante.readDouble();
+                Cantante cantante = new Cantante(nombreArtistico, generoMusical, sencillos, conciertos, giras, codigo, nombre, apellido, edad, nacionalidad, salario);
+                cantantes.add(cantante);
+                pos += 522;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cantantes;
+    }
+
+    @Override
+    public void createDisc(Cantante cantante2, Disco disco) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            int pos2 = pos;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                pos2 = pos;
+                System.out.println("El codigo que se está comparando es: " + cod);
+                System.out.println("Se compara con: " + cantante2.getCodigo());
+                while (cod == cantante2.getCodigo() && !encuentra) {
+                    System.out.println("Se está escribiendo en el cantante con codigo: " + cod + "Que está en la posicion: " + pos2);
+                    archivoCantante.seek(pos2 + 171 + 4);
+                    if (archivoCantante.readUTF().isBlank()) {
+                        archivoCantante.seek(pos2 + 171);
+                        encuentra = true;
+                        archivoCantante.writeInt(disco.getCodigo());
+                        archivoCantante.writeUTF(disco.getNombre());
+                        archivoCantante.writeInt(disco.getAnioDeLanzamiento());
+                        archivoCantante.close();
+                    }
+                    pos2 += 35;
+                }
+                pos += 522;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public Disco readDisc(Cantante cantante2, int codigo) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            int pos2 = pos;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                while ((cod == cantante2.getCodigo())) {
+                    archivoCantante.seek(pos2 + 171);
+                    int codDisc = archivoCantante.readInt();
+                    if (codDisc == codigo) {
+                        encuentra = true;
+                        String nombre = archivoCantante.readUTF();
+                        int fecha = archivoCantante.readInt();
+                        archivoCantante.close();
+                        return new Disco(codigo, nombre, fecha);
+                    }
+                    pos2 += 35;
+                }
+                pos += 522;
+
             }
         } catch (IOException ex) {
             Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    private static byte[] readCharsFromFile(String filePath, int seek, int chars) throws IOException {
-		RandomAccessFile file = new RandomAccessFile(filePath, "r");
-		file.seek(seek);
-		byte[] bytes = new byte[chars];
-		file.read(bytes);
-		file.close();
-		return bytes;
-	}
-    /*
+
     @Override
-    public void update(Cantante cantante) {
-        for (int i = 0; i < listaCantante.size(); i++) {
-            Cantante c = listaCantante.get(i);
-            if (c.getCodigo() == cantante.getCodigo()) {
-                listaCantante.set(i, cantante);
-                break;
-            }
+    public void updateDisc(Cantante cantante2, Disco disco) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
         }
-
-    }
-
-    @Override
-    public void delete(Cantante cantante) {
-        Iterator<Cantante> it = listaCantante.iterator();
-        while (it.hasNext()) {
-            Cantante c = it.next();
-            if (c.getCodigo() == cantante.getCodigo()) {
-                it.remove();
-                break;
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            int pos2 = pos;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                while (!encuentra && cod == cantante2.getCodigo()) {
+                    archivoCantante.seek(pos2 + 171);
+                    int codDisc = archivoCantante.readInt();
+                    while (!encuentra && codDisc == disco.getCodigo()) {
+                        archivoCantante.writeUTF(disco.getNombre());
+                        archivoCantante.writeInt(disco.getAnioDeLanzamiento());
+                        encuentra = true;
+                        archivoCantante.close();
+                    }
+                    pos2 += 35;
+                }
+                pos += 522;
             }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Cantante> findAll() {
-        return listaCantante;
-    }
-     */
-    @Override
-    public void update(Cantante cantante) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteDisc(Cantante cantante2, Disco disco) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 0;
+            int pos2 = pos;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                while (!encuentra && cod == cantante2.getCodigo()) {
+                    archivoCantante.seek(pos2 + 171);
+                    int codDisc = archivoCantante.readInt();
+                    while (!encuentra && codDisc == disco.getCodigo()) {
+                        int longuitud = (int) archivoCantante.length();
+                        encuentra = true;
+                        archivoCantante.seek(pos2 + 171);
+                        byte[] cantanteEliminado = new byte[longuitud - (pos + 35)];
+                        archivoCantante.seek(pos2 + 171);
+                        archivoCantante.write(cantanteEliminado);
+                        archivoCantante.setLength(longuitud - 35);
+                        archivoCantante.close();
+                    }
+                    pos2 += 35;
+                }
+                pos += 522;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void delete(Cantante cantante) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Disco> findAllDiscs(Cantante cantante2) {
+        List<Disco> discos = new ArrayList<>();
+        try {
+            try {
+                archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+            } catch (IOException ex) {
+                System.out.println("Error al crear");
+            }
+            boolean encuentra = false;
+            int pos = 0;
+            while (!encuentra && pos < archivoCantante.length()) {
+                archivoCantante.seek(pos);
+                int cod = archivoCantante.readInt();
+                int pos2 = pos + 171;
+                while (!encuentra && cod == cantante2.getCodigo()) {
+                    //System.out.println(encuentra);
+                    //System.out.println("Hasta aqui todo bien");
+                    while (pos2 < (pos + 522)) {
+                        archivoCantante.seek(pos2);
+                        int codigo = archivoCantante.readInt();
+                        String nombre = archivoCantante.readUTF();
+                        int anio = archivoCantante.readInt();
+                        Disco disco = new Disco(codigo, nombre, anio);
+                        discos.add(disco);
+                        pos2 += 35;
+                    }
+                    encuentra = true;
+
+                }
+                pos += 522;
+
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return discos;
     }
 
     @Override
-    public List<Cantante> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Cantante readDiscWOS(int codigo) {
+        try {
+            archivoCantante = new RandomAccessFile(cantantesFile, "rw");
+        } catch (IOException ex) {
+            System.out.println("Error al crear");
+        }
+        try {
+            boolean encuentra = false;
+            int pos = 171;
+            int cont = 0;
+            while (!encuentra && pos < archivoCantante.length()) {
+                int pos2 = pos;
+                archivoCantante.seek(pos2);
+                int codDisc = archivoCantante.readInt();
+                while (cont < 10) {
+                    if (codDisc == codigo) {
+                        encuentra = true;
+                        archivoCantante.seek(pos2 - ((35 * cont) + 171));
+                        int cod = archivoCantante.readInt();
+                        String nombre = archivoCantante.readUTF();
+                        //Para encontrar el apellido
+                        String apellido = archivoCantante.readUTF();
+                        //Para encontrar la edad
+                        int edad = archivoCantante.readInt();
+                        //Para encontrar la nacionalidad
+                        String nacionalidad = archivoCantante.readUTF();
+                        //Para encontrar el nombre artistico
+                        String nombreArtistico = archivoCantante.readUTF();
+                        //Para encontrar el Genero musical
+                        String generoMusical = archivoCantante.readUTF();
+                        //Para encontrar  el # Sencillos
+                        int sencillos = archivoCantante.readInt();
+                        //Para encontrar el # Conciertos
+                        int conciertos = archivoCantante.readInt();
+                        //Para encontrar el # Giras
+                        int giras = archivoCantante.readInt();
+                        //Para encontrar el salario
+                        double salario = archivoCantante.readDouble();
+                        archivoCantante.close();
+                        return new Cantante(nombreArtistico, generoMusical, sencillos, conciertos, giras, cod, nombre, apellido, edad, nacionalidad, salario);
+                    }
+                    pos2 += 35;
+                }
+                pos += 171;
+                cont = 0;
+            }
+                return null;
+        } catch (IOException ex) {
+            Logger.getLogger(CantanteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
+
 }

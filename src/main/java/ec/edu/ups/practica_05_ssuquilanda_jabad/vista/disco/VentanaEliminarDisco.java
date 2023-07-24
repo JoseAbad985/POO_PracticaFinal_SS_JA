@@ -28,8 +28,8 @@ public class VentanaEliminarDisco extends javax.swing.JInternalFrame {
     }
     public void cambiarIdioma(Locale localizacion){
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
-        jLabel1.setText(mensajes.getString("txtIngresarCódigoDelCantanteDesdeElCualActualizarUnDisco"));
-        jLabel2.setText(mensajes.getString("txtIngresarCódigoDelDiscoAActualizar"));
+        jLabel1.setText(mensajes.getString("txtIngresarCódigoDelCantanteDesdeElCualEliminarUnDisco"));
+        jLabel2.setText(mensajes.getString("txtIngresarCódigoDelDiscoAEliminar"));
         lblNombreCrearPersona5.setText(mensajes.getString("txtCódigo"));
         lblNombreCrearPersona4.setText(mensajes.getString("txtNombre"));        
         lblFechaNacimientoCrearPersona1.setText(mensajes.getString("txtApellido"));        
@@ -43,8 +43,8 @@ public class VentanaEliminarDisco extends javax.swing.JInternalFrame {
         lblSalarioBuscarCantante1.setText(mensajes.getString("txtSalarioBase"));
         lblNombreCrearPersona7.setText(mensajes.getString("txtCódigo"));
         lblNombreCrearPersona8.setText(mensajes.getString("txtNombre"));
-        btnAceptarIngresarDisco.setText(mensajes.getString("txtActualizar"));
-        btnBuscarBuscarCantante1.setText(mensajes.getString("txtBuscar"));
+        lblAñoDeLanzamientoIngresarDisco.setText(mensajes.getString("txtAñoDeLanzamiento"));
+        btnAceptarIngresarDisco.setText(mensajes.getString("txtBuscar"));
         btnAceptarIngresarDisco1.setText(mensajes.getString("txtEliminar"));
         btnCancelarBuscarCantante1.setText(mensajes.getString("txtCancelar"));
     }
@@ -517,15 +517,13 @@ public class VentanaEliminarDisco extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Los datos del disco son obligatorios de llenar");
 
         } else {
-            txtNombreDisco.setEnabled(true);
-            txtAñoDeLanzamientoIngresarDisco.setEnabled(true);
             String codigo = txtCodigoDisco.getText();
             int codigoDisco = Integer.parseInt(codigo);
             String codigoCantante = txtCodigoCantante.getText();
             int codiguito = Integer.parseInt(codigoCantante);
             Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
             if (cantanteSeleccionado != null) {
-                Disco disquito = cantanteSeleccionado.buscarDisco(codigoDisco);
+                Disco disquito = controladorCantante.buscarDisco(cantanteSeleccionado, codigoDisco);
                 txtNombreDisco.setText(disquito.getNombre());
                 txtAñoDeLanzamientoIngresarDisco.setText(String.valueOf(disquito.getAnioDeLanzamiento()));
             }
@@ -540,9 +538,8 @@ public class VentanaEliminarDisco extends javax.swing.JInternalFrame {
         int codiguito = Integer.parseInt(codigoCantante);
         Cantante cantanteSeleccionado = controladorCantante.buscarCantante(codiguito);
         if (cantanteSeleccionado != null) {
-            Disco disquito = cantanteSeleccionado.buscarDisco(codigoDisco);
-            cantanteSeleccionado.eliminarDisco(disquito);
-            
+            Disco disquito = controladorCantante.buscarDisco(cantanteSeleccionado, codigoDisco);
+            controladorCantante.eliminarDisco(cantanteSeleccionado, disquito);
             this.limpiarCamposCantante();
             this.limpiarCamposDisco();
             JOptionPane.showMessageDialog(this, "El disco  ha sido eliminado exitosamente !:)");
