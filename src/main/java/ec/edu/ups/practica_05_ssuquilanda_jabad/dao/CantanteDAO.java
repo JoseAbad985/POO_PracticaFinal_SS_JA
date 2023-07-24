@@ -448,6 +448,7 @@ public class CantanteDAO implements ICantanteDAO {
             }
             boolean encuentra = false;
             int pos = 0;
+            int n = 0;
             while (!encuentra && pos < archivoCantante.length()) {
                 archivoCantante.seek(pos);
                 int cod = archivoCantante.readInt();
@@ -455,13 +456,14 @@ public class CantanteDAO implements ICantanteDAO {
                 while (!encuentra && cod == cantante2.getCodigo()) {
                     //System.out.println(encuentra);
                     //System.out.println("Hasta aqui todo bien");
-                    while (pos2 < (pos + 522)) {
+                    while (pos2 < (pos + 522) && n != 10) {
                         archivoCantante.seek(pos2);
                         int codigo = archivoCantante.readInt();
                         String nombre = archivoCantante.readUTF();
                         int anio = archivoCantante.readInt();
                         Disco disco = new Disco(codigo, nombre, anio);
                         discos.add(disco);
+                        n += 1;
                         pos2 += 35;
                     }
                     encuentra = true;

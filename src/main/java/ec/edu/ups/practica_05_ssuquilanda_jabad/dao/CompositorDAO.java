@@ -428,6 +428,7 @@ public class CompositorDAO implements ICompositorDAO {
             }
             boolean encuentra = false;
             int pos = 0;
+            int n = 0;
             while (!encuentra && pos < archivoCompositor.length()) {
                 archivoCompositor.seek(pos);
                 int cod = archivoCompositor.readInt();
@@ -435,7 +436,7 @@ public class CompositorDAO implements ICompositorDAO {
                 while (!encuentra && cod == compositor2.getCodigo()) {
                     //System.out.println(encuentra);
                     //System.out.println("Hasta aqui todo bien");
-                    while (pos2 < (pos + 2439)) {
+                    while (pos2 < (pos + 2439) && n != 10) {
                         archivoCompositor.seek(pos2);
                         int codigo = archivoCompositor.readInt();
                         String titulo = archivoCompositor.readUTF();
@@ -443,6 +444,7 @@ public class CompositorDAO implements ICompositorDAO {
                         double tiempo = archivoCompositor.readDouble();
                         Cancion cancion = new Cancion(codigo, titulo, letra, tiempo);
                         canciones.add(cancion);
+                        n += 1;
                         pos2 += 62;
                     }
                     encuentra = true;
@@ -611,12 +613,13 @@ public class CompositorDAO implements ICompositorDAO {
             }
             boolean encuentra = false;
             int pos = 0;
+            int n = 0;
             while (!encuentra && pos < archivoCompositor.length()) {
                 archivoCompositor.seek(pos);
                 int cod = archivoCompositor.readInt();
                 int pos2 = pos + 729;
                 while (!encuentra && cod == compositor2.getCodigo()) {
-                    while (pos2 < (pos + 2439)) {
+                    while (pos2 < (pos + 2439) && n != 10) {
                         archivoCompositor.seek(pos2);
                         int codigo = archivoCompositor.readInt();
                         String nombre = archivoCompositor.readUTF();
@@ -640,6 +643,7 @@ public class CompositorDAO implements ICompositorDAO {
                         double salario = archivoCompositor.readDouble();
                         Cantante cantante =new Cantante(nombreArtistico, generoMusical, sencillos, conciertos, giras, codigo, nombre, apellido, edad, nacionalidad, salario);
                         cantantes.add(cantante);
+                        n += 1;
                         pos2 += 171;
                     }
                     encuentra = true;
