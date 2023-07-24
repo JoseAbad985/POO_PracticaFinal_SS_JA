@@ -104,7 +104,7 @@ public class ControladorCompositor {
     //Metodos de cancion
     public Cancion buscarCancion(Compositor compositor, int codigo) {
         this.compositor = compositor;
-        Cancion cancion = compositor.buscarCancion(codigo);
+        Cancion cancion = compositorDAO.readCancion(compositor, codigo);
         if(cancion!=null){
             return cancion;
         }else{
