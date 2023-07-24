@@ -145,7 +145,7 @@ public class CompositorDAO implements ICompositorDAO {
         //  archivoCantante.writeUTF(" ");
         //n += 1;
         //}
-        byte[] bytes = new byte[2370];
+        byte[] bytes = new byte[2371];
         archivoCompositor.write(bytes);
     }
 

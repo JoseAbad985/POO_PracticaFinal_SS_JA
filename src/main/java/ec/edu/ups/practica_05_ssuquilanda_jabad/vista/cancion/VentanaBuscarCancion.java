@@ -377,9 +377,8 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
 
     private void btnBuscarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCancionActionPerformed
         String codigoCancion = txtCodigoCancion.getText();
-        if (codigoCancion.isEmpty()) {
+        if (codigoCancion.isEmpty()){
             JOptionPane.showMessageDialog(this, "El codigo de la cancion a buscar no ha sido ingresado");
-
         } else {
             String codigoCompositor = txtCodigoCompositor.getText();
             int codiguito = Integer.parseInt(codigoCompositor);
@@ -390,8 +389,7 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
                 txtLetraCancion.setText(cancion.getLetra());
                 String tiempo = String.valueOf(cancion.getTiempoEnMinutos());
                 txtTiempoCancion.setText(tiempo);
-                JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " ha sido encontrada !:(");
-
+                JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " ha sido encontrada !:)");
             } else {
                 JOptionPane.showMessageDialog(this, "La cancion con codigo " + codiguito + " no ha sido encontrada !:(");
 
@@ -427,11 +425,12 @@ public class VentanaBuscarCancion extends javax.swing.JInternalFrame {
                 txtApellidoCompositor.setText(compositorSeleccionado.getApellido());
                 String edad = String.valueOf(compositorSeleccionado.getEdad());
                 txtEdadCompositor.setText(edad);
+                txtNacionalidadCompositor.setText(compositorSeleccionado.getNacionalidad());
                 String numComposiones = String.valueOf(compositorSeleccionado.getNumeroDeComposiciones());
                 txtNumComposicionesCompositor.setText(numComposiones);
                 String salarioCom = String.valueOf(compositorSeleccionado.getSalario());
                 txtSalarioCompositor.setText(salarioCom);
-                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:(");
+                JOptionPane.showMessageDialog(this, "El/La compositor con codigo " + codiguito + " ha sido encontrado !:)");
                 btnBuscarCancion.setEnabled(true);
 
             } else {

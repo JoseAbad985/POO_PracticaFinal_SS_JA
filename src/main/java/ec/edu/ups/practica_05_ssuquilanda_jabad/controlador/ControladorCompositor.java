@@ -67,6 +67,9 @@ public class ControladorCompositor {
     //llama al DAO para obtener un compositor por el id y luego los muestra en la vista
     public Compositor buscarCompositor(int codigo) {
         this.compositor = compositorDAO.read(codigo);
+        if (this.compositor != null) {
+            compositor.setSalarioFinal(compositor.calcularSalario(compositor.getSalario()));
+        }
         return this.compositor;
     }
 
@@ -96,18 +99,27 @@ public class ControladorCompositor {
     }
 
     //ejemplo de agregacion de Cancion
-    public void agregarCancion(Compositor compositor, Cancion cancion) {
-        this.compositor = compositor;
-        this.cancion = cancion;
-        compositor.agregarCancion(cancion);
+    public void agregarCancion(Compositor compositorSeleccionado, Cancion cancion) {
+        System.out.println("El codigo del compositor que estoy pasando al metodo es: " + compositorSeleccionado.getCodigo());
+        compositorDAO.createCancion(compositorSeleccionado, cancion);
     }
     //Metodos de cancion
     public Cancion buscarCancion(Compositor compositor, int codigo) {
         this.compositor = compositor;
-        Cancion cancion = compositor.buscarCancion(codigo);
+        Cancion cancion = compositorDAO.readCancion(compositor, codigo);
         if(cancion!=null){
             return cancion;
         }else{
+            return null;
+        }
+    }
+    public Compositor buscarCancionSinCompositor(int codigo) {
+        Compositor compositor = compositorDAO.readCancionWOS(codigo);
+        double salarioF = compositor.calcularSalario(compositor.getSalario());
+        compositor.setSalarioFinal(salarioF);
+        if (compositor != null) {
+            return compositor;
+        } else {
             return null;
         }
     }
