@@ -94,7 +94,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cantanteDAO = new CantanteDAO();
         controladorCantante = new ControladorCantante(cantanteDAO);
         controladorCompositor = new ControladorCompositor(compositorDAO);
-        localizacion = Locale.getDefault();                
+        //localizacion = Locale.getDefault();                
+        localizacion = new Locale("es", "EC");
         cambiarIdioma();
     }
     private void cambiarIdioma(){

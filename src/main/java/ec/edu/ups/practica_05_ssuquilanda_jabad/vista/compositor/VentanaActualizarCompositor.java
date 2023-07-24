@@ -355,12 +355,12 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
         }
     }
     public void cambiarEstadoCampos(boolean estado) {
-        txtNombreCompositor.setEditable(estado);
-        txtApellidoCompositor.setEditable(estado);
-        txtEdadCompositor.setEditable(estado);
-        cbxPaisActualizarCompositor.setEditable(estado);
+        txtNombreCompositor.setEnabled(estado);
+        txtApellidoCompositor.setEnabled(estado);
+        txtEdadCompositor.setEnabled(estado);
+        cbxPaisActualizarCompositor.setEnabled(estado);
         txtNumComposicionesCompositor.setEnabled(estado);
-        txtSalarioCompositor.setEditable(estado);
+        txtSalarioCompositor.setEnabled(estado);
 
     }
     public List<String> generarPaises() {
